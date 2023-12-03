@@ -93,7 +93,7 @@
                                     <td><?= esc($data['updated_at']) ?></td>
                                     <td>
                                         <?php if ($data['foto']) : ?>
-                                            <img src="<?= base_url('public/uploads/fotos/' . $data['foto']) ?>" alt="<?= $data['nama_buku'] ?>" class="img-fluid" width="100">
+                                            <img src="<?= base_url('uploads/fotos/' . $data['foto']) ?>" alt="<?= $data['nama_buku'] ?>" class="img-fluid" width="100">
                                         <?php endif; ?>
                                     </td>
                                     <td>

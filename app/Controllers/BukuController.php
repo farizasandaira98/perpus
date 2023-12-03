@@ -56,6 +56,6 @@ class BukuController extends Controller
             'foto'  => $fotoName
             ];
         $save = $model->insert($data);
-        return view('buku');
+        return redirect()->to('buku');
     }
 } 

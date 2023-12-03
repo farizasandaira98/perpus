@@ -7,5 +7,5 @@ class BukuModel extends Model
 {
     protected $table = 'buku';
     protected $primaryKey = 'kode_buku';
-    protected $allowedFields = ['nama_buku', 'nama_pengarang', 'nama_penerbit', 'tahun_terbit', 'created_at','updated_at'];
+    protected $allowedFields = ['kode_buku','nama_buku', 'nama_pengarang', 'nama_penerbit', 'tahun_terbit','foto', 'created_at','updated_at'];
 }

@@ -38,8 +38,8 @@
                             <h3>Data Buku</h3>
                         </div>
                         <div class="col-6">
-                            <a href="/buku/tambah" class="btn btn-primary" style="margin-left: 81%;">
-                            <i class="bi bi-plus"></i> Tambah
+                            <a href="/buku/create" class="btn btn-primary" style="margin-left: 81%;">
+                                <i class="bi bi-plus"></i> Tambah
                             </a>
                         </div>
                     </div>
@@ -91,7 +91,11 @@
                                     <td><?= esc($data['tahun_terbit']) ?></td>
                                     <td><?= esc($data['created_at']) ?></td>
                                     <td><?= esc($data['updated_at']) ?></td>
-                                    <td></td>
+                                    <td>
+                                        <?php if ($data['foto']) : ?>
+                                            <img src="<?= base_url('public/uploads/fotos/' . $data['foto']) ?>" alt="<?= $data['nama_buku'] ?>" class="img-fluid" width="100">
+                                        <?php endif; ?>
+                                    </td>
                                     <td>
                                         <a class="btn btn-sm btn-danger">
                                             <i class="bi bi-trash"></i>
@@ -110,4 +114,5 @@
         </div>
     </div>
 </body>
+
 </html>

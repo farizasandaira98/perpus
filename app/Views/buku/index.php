@@ -81,7 +81,7 @@
                     <tbody>
                         <?php if (empty($buku)) : ?>
                             <p>Tidak ada data buku.</p>
-                        <?php else : ?>
+                        <?php else : ?> 
                             <?php foreach ($buku as $data) : ?>
                                 <tr>
                                     <td><?= esc($data['kode_buku']) ?></td>
@@ -97,10 +97,10 @@
                                         <?php endif; ?>
                                     </td>
                                     <td>
-                                        <a class="btn btn-sm btn-danger">
+                                        <a href="/buku/delete/<?= esc($data['id']) ?>" class="btn btn-sm btn-danger">
                                             <i class="bi bi-trash"></i>
                                         </a>
-                                        <a class="btn btn-sm btn-warning">
+                                        <a href="/buku/edit/<?= esc($data['id']) ?>" class="btn btn-sm btn-warning">
                                             <i class="bi bi-pencil-square"></i>
                                         </a>
                                     </td>

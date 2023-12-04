@@ -1,10 +1,11 @@
 <?php
+
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\BukuModel;
 
-class BukuController extends Controller 
+class BukuController extends Controller
 {
     public function index()
     {
@@ -16,7 +17,7 @@ class BukuController extends Controller
 
     public function create()
     {
-      return view('buku/create'); 
+        return view('buku/create');
     }
 
     public function post()
@@ -54,8 +55,76 @@ class BukuController extends Controller
             'created_at' => $currentDateTime,
             'updated_at' => $currentDateTime,
             'foto'  => $fotoName
-            ];
+        ];
         $save = $model->insert($data);
         return redirect()->to('buku');
     }
-} 
+
+    public function edit($id)
+    {
+        $data = model('BukuModel')->find($id);
+        return view('buku/edit', [
+            'data' => $data,
+        ]);
+    }
+
+    public function update($id)
+    {
+        $validation = $this->validate([
+            'foto' => [
+                'rules' => 'uploaded[foto]|max_size[foto,1024]',
+                'errors' => [
+                    'uploaded' => 'The foto is required.',
+                    'max_size' => 'The foto size cannot exceed 1MB.',
+                ],
+            ],
+        ]);
+        if (!$validation) {
+            return view('buku/edit', [
+                'errors' => $this->validator->getErrors(),
+            ]);
+        }
+        $book = model('BukuModel')->find($id);
+        $foto = esc($book['foto']);
+        if ($foto) {
+            unlink('uploads/fotos/' . $foto);
+        }
+
+        // Upload the foto to hosting
+        $foto = $this->request->getFile('foto');
+        $fotoName = $foto->getRandomName();
+        $foto->move('uploads/fotos/', $fotoName);
+
+        // Create the book
+        $model = new BukuModel();
+        $currentDateTime = date('Y-m-d H:i:s');
+        $data = [
+            'kode_buku' => $this->request->getVar('kode_buku'),
+            'nama_buku'  => $this->request->getVar('nama_buku'),
+            'nama_pengarang'  => $this->request->getVar('nama_pengarang'),
+            'nama_penerbit'  => $this->request->getVar('nama_penerbit'),
+            'tahun_terbit'  => $this->request->getVar('tahun_terbit'),
+            'created_at' => $this->request->getVar('created_at'),
+            'updated_at' => $currentDateTime,
+            'foto'  => $fotoName
+        ];
+        $save = $model->update($data);
+        return redirect()->to('buku');
+    }
+
+    public function delete($id)
+    {
+        $book = model('buku')->find($id);
+
+        // Delete the foto
+        $foto = $book->foto;
+        if ($foto) {
+            unlink('uploads/fotos/' . $foto);
+        }
+
+        // Delete the book
+        $book->delete($id);
+
+        return redirect()->to('/buku');
+    }
+}

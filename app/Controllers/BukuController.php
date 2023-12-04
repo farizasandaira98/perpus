@@ -84,18 +84,24 @@ class BukuController extends Controller
                 'errors' => $this->validator->getErrors(),
             ]);
         }
-        $book = model('BukuModel')->find($id);
-        $foto = esc($book['foto']);
-        if ($foto) {
-            unlink('uploads/fotos/' . $foto);
-        }
-
         // Upload the foto to hosting
         $foto = $this->request->getFile('foto');
-        $fotoName = $foto->getRandomName();
-        $foto->move('uploads/fotos/', $fotoName);
 
-        // Create the book
+        if ($foto) {
+            $fotoName = $foto->getRandomName();
+            $foto->move('uploads/fotos/', $fotoName);
+
+            // Delete the old foto
+            $oldFoto = model('BukuModel')->find($id);
+            $dataOldFoto = esc($oldFoto['foto']);
+            if ($dataOldFoto) {
+                unlink('uploads/fotos/' . $dataOldFoto);
+            }
+        } else {
+            $fotoName = '';
+        }
+
+        // Update the book
         $model = new BukuModel();
         $currentDateTime = date('Y-m-d H:i:s');
         $data = [
@@ -108,23 +114,20 @@ class BukuController extends Controller
             'updated_at' => $currentDateTime,
             'foto'  => $fotoName
         ];
-        $save = $model->update($data);
-        return redirect()->to('buku');
+        $update = $model->update($id,$data);
+        return redirect()->to('/buku');
     }
 
     public function delete($id)
     {
-        $book = model('buku')->find($id);
-
-        // Delete the foto
-        $foto = $book->foto;
-        if ($foto) {
-            unlink('uploads/fotos/' . $foto);
+        $model = new BukuModel();
+        $oldFoto = model('BukuModel')->find($id);
+        $dataOldFoto = esc($oldFoto['foto']);
+        if ($dataOldFoto) {
+            unlink('uploads/fotos/' . $dataOldFoto);
         }
-
         // Delete the book
-        $book->delete($id);
-
+        $data['buku'] = $model->where('id', $id)->delete();
         return redirect()->to('/buku');
     }
 }

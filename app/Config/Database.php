@@ -26,9 +26,9 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'localhost',
+        'hostname'     => 'localhost:3306',
         'username'     => 'root',
-        'password'     => "fariza!#123",
+        'password'     => "",
         'database'     => 'perpus',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',

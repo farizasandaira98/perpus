@@ -11,10 +11,10 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary mb-3">
         <div class="container-fluid">
             <a href="#" class="navbar-brand">Perpus</a>
-            <div class="collapse navbar-collapse" id="navbarNav">
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
                         <a href="/" class="nav-link" aria-current="page">Home</a>
@@ -29,7 +29,8 @@
             </div>
         </div>
     </nav>
-    <div class="card">
+    <div class="d-flex justify-content-center">
+    <div class="card m-30 p-30" style="width: 90%;">
         <div class="card-body">
             <div class="card-title">
                 <div class="container-fluid">
@@ -112,6 +113,7 @@
                 </table>
             </div>
         </div>
+    </div>
     </div>
 </body>
 

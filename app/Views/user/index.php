@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <title>Halaman Buku</title>
+    <title>Halaman Pengguna</title>
 </head>
 
 <body>
@@ -36,10 +36,10 @@
                 <div class="container-fluid">
                     <div class="row justify-content-between">
                         <div class="col-6">
-                            <h3>Data User</h3>
+                            <h3>Data Pengguna</h3>
                         </div>
                         <div class="col-6">
-                            <a href="/buku/create" class="btn btn-primary" style="margin-left: 81%;">
+                            <a href="/user/create" class="btn btn-primary" style="margin-left: 81%;">
                                 <i class="bi bi-plus"></i> Tambah
                             </a>
                         </div>
@@ -55,6 +55,9 @@
                             </th>
                             <th>
                                 Nama Lengkap
+                            </th>
+                            <th>
+                                Peran
                             </th>
                             <th>
                                Alamat
@@ -81,12 +84,13 @@
                     </thead>
                     <tbody>
                         <?php if (empty($users)) : ?>
-                            <p>Tidak ada data buku.</p>
+                            <p>Tidak ada data pengguna.</p>
                         <?php else : ?> 
                             <?php foreach ($users as $data) : ?>
                                 <tr>
                                     <td><?= esc($data['username']) ?></td>
                                     <td><?= esc($data['nama']) ?></td>
+                                    <td><?= esc($data['id_role']) == 1 ? 'Admin' : 'Pengguna' ?></td>
                                     <td><?= esc($data['alamat']) ?></td>
                                     <td><?= esc($data['pekerjaan']) ?></td>
                                     <td><?= esc($data['nomor_telepon']) ?></td>

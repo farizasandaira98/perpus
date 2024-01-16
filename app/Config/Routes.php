@@ -22,3 +22,4 @@ $routes->post('/user/update/(:num)', 'UserController::update/$1');
 $routes->get('/user/delete/(:num)', 'UserController::delete/$1');
 $routes->get('/login', 'UserController::auth');
 $routes->post('/auth/login', 'UserController::login');
+$routes->get('/logout', 'UserController::logout');

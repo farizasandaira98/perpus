@@ -130,4 +130,11 @@ class BukuController extends Controller
         $data['buku'] = $model->where('id', $id)->delete();
         return redirect()->to('/buku');
     }
+
+    public function search(){
+        $model = new BukuModel();
+        $keyword = $this->request->getVar('search');
+        $data['buku'] = $model->like('nama_buku', $keyword)->findAll();
+        return view('buku/index', $data);
+    }
 }

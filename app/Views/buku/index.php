@@ -1,4 +1,4 @@
-<html lang="en">
+  <html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -6,7 +6,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="<?= base_url('template/assets/img/apple-icon.png') ?>">
   <link rel="icon" type="image/png" href="<?= base_url('template/assets/img/favicon.png') ?>">
   <title>
-    Halaman Dashboard
+    Halaman Buku
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
@@ -22,6 +22,25 @@
       overflow-y: auto; /* Enable vertical scrolling */
       max-width: fit-content;
     }
+    .custom-input-group {
+        display: flex;
+        margin-bottom: 10px; /* Adjust this value as needed */
+    }
+
+    .custom-form-control {
+        border-radius: 5px 0 0 5px; /* Add border-radius to match button */
+    }
+
+    .custom-input-group-append {
+        display: flex;
+    }
+
+    .custom-btn {
+        margin-left: 10px;
+        border-radius: 0 5px 5px 0; /* Add border-radius to match input */
+        height: 100%;
+    }
+
   </style>
   <style media="all" id="fa-v4-font-face">
     /*!
@@ -16783,7 +16802,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="/user">
+          <a class="nav-link" href="/user">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -16910,11 +16929,21 @@
       <div class="col-lg-12 mb-lg-0 mb-4">
           <div class="card">
           <div class="row p-4 justify-content-between align-items-center">
-                        <div class="col-6">
-                            <form action="" method="post">
-                                <input type="text" name="search" id="" class="form-control" placeholder="Cari Buku">
-                            </form>
-                        </div>
+          <div class="col-6">
+          <form action="/buku/search" method="post" class="custom-input-group">
+    <input type="text" name="search" class="form-control custom-form-control" placeholder="Cari Buku" aria-label="Cari Buku" aria-describedby="basic-addon2">
+    <div class="input-group-append custom-input-group-append">
+        <button class="btn btn-outline-secondary custom-btn" type="submit">
+            <i class="fa fa-search"></i>
+        </button>
+        <a href="/buku">
+        <button class="btn btn-outline-secondary custom-btn" type="button">
+          <i class="fa fa-refresh"></i>
+        </button>
+        </a>
+    </div>
+</form>
+        </div>
                         <div class="col-6">
                             <a href="/buku/create" class="btn btn-primary" style="margin-left: 81%;">
                                 <i class="bi bi-plus"></i> Tambah

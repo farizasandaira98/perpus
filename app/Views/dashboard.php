@@ -16940,9 +16940,7 @@
           </div>
         </div>
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-
         </div>
-
       </div>
       <div class="row mt-4">
         <div class="col-lg-7 mb-lg-0 mb-4">
@@ -16951,10 +16949,8 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="d-flex flex-column h-100">
-
                     <h5 class="font-weight-bolder">Dashboard Perpustakaan</h5>
-                    <p class="mb-5">Selamat Datang Di Sitem Perpustakaan</p>
-
+                    <p class="mb-5">Selamat Datang Di Sistem Perpustakaan</p>
                   </div>
                 </div>
                 <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">

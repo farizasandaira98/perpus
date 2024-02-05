@@ -72,6 +72,13 @@ class UserController extends Controller
         return redirect()->to('/user');
     }
 
+    public function search(){
+        $model = new UserModel();
+        $keyword = $this->request->getVar('search');
+        $data['users'] = $model->like('username', $keyword)->findAll();
+        return view('user/index', $data);
+    }
+
     public function auth()
     {
         $session = session();

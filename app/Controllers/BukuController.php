@@ -54,7 +54,8 @@ class BukuController extends Controller
             'tahun_terbit'  => $this->request->getVar('tahun_terbit'),
             'created_at' => $currentDateTime,
             'updated_at' => $currentDateTime,
-            'foto'  => $fotoName
+            'foto'  => $fotoName,
+            'search_foto' => 0,
         ];
         $save = $model->insert($data);
         return redirect()->to('buku');
@@ -134,7 +135,13 @@ class BukuController extends Controller
     public function search(){
         $model = new BukuModel();
         $keyword = $this->request->getVar('search');
-        $data['buku'] = $model->like('nama_buku', $keyword)->findAll();
+        $bukubyid = $model->like('nama_buku', $keyword)->findAll();
+        $data['buku'] = $bukubyid;
+
+        foreach ($bukubyid as $book) {
+            $model->update($book['id'], ['search_count' => $book['search_count'] + 1]);
+        }
+
         return view('buku/index', $data);
     }
 }

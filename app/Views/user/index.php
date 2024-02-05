@@ -8400,6 +8400,32 @@
       unicode-range: U+f003, U+f006, U+f014, U+f016, U+f01a-f01b, U+f01d, U+f040, U+f045-f047, U+f05c-f05d, U+f07d-f07e, U+f087-f088, U+f08a-f08b, U+f08e, U+f090, U+f096-f097, U+f0a2, U+f0e4-f0e6, U+f0ec-f0ee, U+f0f5-f0f7, U+f10c, U+f112, U+f114-f115, U+f11d, U+f123, U+f132, U+f145, U+f147-f149, U+f14c, U+f166, U+f16a, U+f172, U+f175-f178, U+f18e, U+f190, U+f196, U+f1b1, U+f1d9, U+f1db, U+f1f7, U+f20c, U+f219, U+f230, U+f24a, U+f250, U+f278, U+f27b, U+f283, U+f28c, U+f28e, U+f29b-f29c, U+f2b7, U+f2ba, U+f2bc, U+f2be, U+f2c0, U+f2c3, U+f2d3-f2d4
     }
   </style>
+  <style>
+    .scrollable-table-container {
+      max-height: 300px; /* Set the desired height for the container */
+      overflow-y: auto; /* Enable vertical scrolling */
+      max-width: fit-content;
+    }
+    .custom-input-group {
+        display: flex;
+        margin-bottom: 10px; /* Adjust this value as needed */
+    }
+
+    .custom-form-control {
+        border-radius: 5px 0 0 5px; /* Add border-radius to match button */
+    }
+
+    .custom-input-group-append {
+        display: flex;
+    }
+
+    .custom-btn {
+        margin-left: 10px;
+        border-radius: 0 5px 5px 0; /* Add border-radius to match input */
+        height: 100%;
+    }
+
+  </style>
   <style media="all" id="fa-v4-shims">
     /*!
  * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
@@ -16911,9 +16937,19 @@
           <div class="card">
           <div class="row p-4 justify-content-between align-items-center">
                         <div class="col-6">
-                            <form action="/user/search" method="post">
-                                <input type="text" name="search" id="" class="form-control" placeholder="Cari User">
-                            </form>
+                        <form action="/user/search" method="post" class="custom-input-group">
+    <input type="text" name="search" class="form-control custom-form-control" placeholder="Cari User" aria-label="Cari User" aria-describedby="basic-addon2">
+    <div class="input-group-append custom-input-group-append">
+        <button class="btn btn-outline-secondary custom-btn" type="submit">
+            <i class="fa fa-search"></i>
+        </button>
+        <a href="/user">
+        <button class="btn btn-outline-secondary custom-btn" type="button">
+          <i class="fa fa-refresh"></i>
+        </button>
+        </a>
+    </div>
+</form>
                         </div>
                         <div class="col-6">
                             <a href="/user/create" class="btn btn-primary" style="margin-left: 81%;">
@@ -16978,10 +17014,10 @@
                                     <td><?= esc($data['updated_at']) ?></td>
                                     <td>
                                         <a href="/user/delete/<?= esc($data['id_user']) ?>" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash"></i>
+                                            <i class="bi bi-trash fs-6"></i>
                                         </a>
                                         <a href="/user/edit/<?= esc($data['id_user']) ?>" class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pencil-square"></i>
+                                            <i class="bi bi-pencil-square fs-6"></i>
                                         </a>
                                     </td>
                                 </tr>

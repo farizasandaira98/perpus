@@ -16984,6 +16984,18 @@
         </div>
       </div>
       <div class="row mt-4">
+      <div class="col-lg-12 mb-lg-0 mb-4">
+          <div class="card">
+            <div class="card-body p-3">
+              <div class="row">
+              <h5 class="text-black fw-bolder">Daftar Buku Paling Dicari</h5>
+              </div>
+              <div class="row">
+                
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <footer class="footer pt-3" style="margin-top: 320px">

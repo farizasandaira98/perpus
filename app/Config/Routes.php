@@ -23,7 +23,7 @@ $routes->post('/user/post' , 'UserController::store');
 $routes->get('/user/edit/(:num)', 'UserController::edit/$1');
 $routes->post('/user/update/(:num)', 'UserController::update/$1');
 $routes->get('/user/delete/(:num)', 'UserController::delete/$1');
-$routes->post('/user/search' , 'BukuController::search');
+$routes->post('/user/search' , 'UserController::search');
 
 //authentication
 $routes->get('/login', 'UserController::auth');

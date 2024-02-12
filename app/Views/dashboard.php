@@ -16950,7 +16950,7 @@
                 <div class="col-lg-6">
                   <div class="d-flex flex-column h-100">
                     <h5 class="font-weight-bolder">Dashboard Perpustakaan</h5>
-                    <p class="mb-5">Selamat Datang Di Sistem Perpustakaan</p>
+                    <p class="mb-5"><?php echo $greetings; ?></p>
                   </div>
                 </div>
                 <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">
@@ -16991,7 +16991,19 @@
               <h5 class="text-black fw-bolder">Daftar Buku Paling Dicari</h5>
               </div>
               <div class="row">
-                
+              <table class="table table-borderless">
+                  <tbody>
+                      <?php $rank = 1; ?>
+                      <?php foreach ($chart_buku as $ranking_buku): ?>
+                          <tr>
+                              <td style="font-weight: bold;"><?= $rank ?></td>
+                              <td style="font-weight: bold;"><?= $ranking_buku['nama_buku'] ?></td>
+                              <td style="font-weight: bold;"><?= $ranking_buku['search_count'] ?> Pencarian</td>
+                          </tr>
+                          <?php $rank++; ?>
+                      <?php endforeach; ?>
+                  </tbody>
+              </table>
               </div>
             </div>
           </div>

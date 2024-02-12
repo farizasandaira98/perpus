@@ -92,7 +92,7 @@ class UserController extends Controller
     public function login()
     {
         try {
-            $session = session();
+        $session = session();
         $model = new UserModel();
         $username = $this->request->getVar('username');
         $password = $this->request->getVar('password');

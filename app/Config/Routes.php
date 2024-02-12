@@ -6,6 +6,9 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 
+//dashboard
+$routes->get('/', 'Home::index');
+
 //buku routes
 $routes->get('/', 'Home::index');
 $routes->get('/buku', 'BukuController::index');
@@ -24,6 +27,9 @@ $routes->get('/user/edit/(:num)', 'UserController::edit/$1');
 $routes->post('/user/update/(:num)', 'UserController::update/$1');
 $routes->get('/user/delete/(:num)', 'UserController::delete/$1');
 $routes->post('/user/search' , 'UserController::search');
+
+//profile routes
+$routes->get('/profile', 'Home::profile');
 
 //authentication
 $routes->get('/login', 'UserController::auth');

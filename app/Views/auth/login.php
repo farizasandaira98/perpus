@@ -32,6 +32,9 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action="/auth/login" method="post">
+					<?php if (session()->has('error')) : ?>
+					<div class="alert alert-danger"><?= session('error') ?></div>
+					<?php endif; ?>
 					<span class="login100-form-title p-b-43">
 						Login Untuk Melanjutkan
 					</span>
@@ -69,12 +72,22 @@
 							Login
 						</button>
 					</div>
-					
-					<!-- <div class="text-center p-t-46 p-b-20">
+
+					<a href="/">
+					<div class="container-login100-form-btn" style="margin-top: 10px;">
+						<button type="button" class="login100-form-btn">
+							Kembali
+						</button>
+					</div>
+					</a>
+
+					<a href="/user/create">
+					<div class="text-center p-t-46 p-b-20">
 						<span class="txt2">
-							or sign up using
+							Belum punya akun? register terlebih dahulu
 						</span>
-					</div> -->
+					</div>
+					</a>
 
 					<!-- <div class="login100-form-social flex-c-m">
 						<a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">

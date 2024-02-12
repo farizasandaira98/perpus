@@ -9,6 +9,11 @@ class BukuController extends Controller
 {
     public function index()
     {
+        $session = session();
+        if (!$session->get('logged_in')) {
+            $session->setFlashdata('error', 'Perlu Login Untuk Akses Fitur Ini');
+            return redirect()->to('/login');
+        }
         $model = new BukuModel();
         $data['buku'] = $model->findAll();
 
@@ -17,25 +22,59 @@ class BukuController extends Controller
 
     public function create()
     {
+        $session = session();
+        if ($session->get('id_role') == 2) {
+            return redirect()->to('/');
+        }
         return view('buku/create');
     }
 
     public function post()
     {
         $validation = $this->validate([
+            'kode_buku' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom kode buku wajib diisi.'
+                ],
+            ],
+            'nama_buku' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom nama buku wajib diisi.'
+                ],
+            ],
+            'nama_pengarang' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom nama pengarang wajib diisi.'
+                ],
+            ],
+            'nama_penerbit' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom nama penerbit wajib diisi.'
+                ],
+            ],
+            'tahun_terbit' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom tahun terbit wajib diisi.'
+                ],
+            ],
             'foto' => [
                 'rules' => 'uploaded[foto]|max_size[foto,1024]',
                 'errors' => [
-                    'uploaded' => 'The foto is required.',
-                    'max_size' => 'The foto size cannot exceed 1MB.',
+                    'uploaded' => 'Kolom foto wajib diisi.',
+                    'max_size' => 'Ukuran foto tidak boleh melebihi 1MB.',
                 ],
             ],
         ]);
-
+        
         if (!$validation) {
-            return view('buku/create', [
-                'errors' => $this->validator->getErrors(),
-            ]);
+            // Flashing the validation errors
+            session()->setFlashdata('errors', $this->validator->getErrors());
+            return redirect()->back(); // Redirecting back to the previous page
         }
 
         // Upload the foto to hosting

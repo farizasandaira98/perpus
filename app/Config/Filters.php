@@ -16,7 +16,6 @@ class Filters extends BaseConfig
      * make reading things nicer and simpler.
      *
      * @var array<string, string>
-     * @phpstan-var array<string, class-string>
      */
     public array $aliases = [
         'csrf'          => CSRF::class,
@@ -30,32 +29,17 @@ class Filters extends BaseConfig
      * List of filter aliases that are always
      * applied before and after every request.
      *
-     * @var array<string, array<string, array<string, string>>>|array<string, array<string>>
-     * @phpstan-var array<string, list<string>>|array<string, array<string, array<string, string>>>
+     * @var array<string, array<string>>
      */
     public array $globals = [
-        'before' => [
-            // 'honeypot',
-            // 'csrf',
-            // 'invalidchars',
-        ],
         'after' => [
             'toolbar',
-            // 'honeypot',
-            // 'secureheaders',
         ],
     ];
 
     /**
      * List of filter aliases that works on a
      * particular HTTP method (GET, POST, etc.).
-     *
-     * Example:
-     * 'post' => ['foo', 'bar']
-     *
-     * If you use this, you should disable auto-routing because auto-routing
-     * permits any HTTP method to access a controller. Accessing the controller
-     * with a method you don't expect could bypass the filter.
      */
     public array $methods = [];
 
@@ -65,6 +49,8 @@ class Filters extends BaseConfig
      *
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
+     *
+     * @var array<string, array<string>>
      */
     public array $filters = [];
 }

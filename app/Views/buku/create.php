@@ -12,44 +12,47 @@
 
 <body>
     <div class="container mt-4">
-        <h2>Tambah Buku</h2>
-
-        <?php if (isset($errors)) : ?>
+            <?php if (session()->has('errors')) : ?>
             <div class="alert alert-danger">
-                <?= \Config\Services::validation()->listErrors(); ?>
+                <ul>
+                    <!-- Iterate through the errors and display them -->
+                    <?php foreach (session('errors') as $error) : ?>
+                        <li><?= esc($error) ?></li> <!-- Escape the error message to prevent XSS attacks -->
+                    <?php endforeach; ?>
+                </ul>
             </div>
         <?php endif; ?>
-
+        <h2>Tambah Buku</h2>
         <form action="/buku/post" method="post" enctype="multipart/form-data">
 
         <div class="mb-3">
             <label for="kode_buku" class="form-label">Kode Buku</label>
-            <input type="text" class="form-control" id="kode_buku" name="kode_buku" required>
+            <input type="text" class="form-control" id="kode_buku" name="kode_buku">
         </div>
 
         <div class="mb-3">
             <label for="nama_buku" class="form-label">Nama Buku</label>
-            <input type="text" class="form-control" id="nama_buku" name="nama_buku" required>
+            <input type="text" class="form-control" id="nama_buku" name="nama_buku">
         </div>
 
         <div class="mb-3">
             <label for="nama_pengarang" class="form-label">Nama Pengarang</label>
-            <input type="text" class="form-control" id="nama_pengarang" name="nama_pengarang" required>
+            <input type="text" class="form-control" id="nama_pengarang" name="nama_pengarang">
         </div>
 
         <div class="mb-3">
             <label for="nama_penerbit" class="form-label">Nama Penerbit</label>
-            <input type="text" class="form-control" id="nama_penerbit" name="nama_penerbit" required>
+            <input type="text" class="form-control" id="nama_penerbit" name="nama_penerbit">
         </div>
 
         <div class="mb-3">
             <label for="tahun_terbit" class="form-label">Tahun Terbit</label>
-            <input type="text" class="form-control" id="tahun_terbit" name="tahun_terbit" required>
+            <input type="text" class="form-control" id="tahun_terbit" name="tahun_terbit">
         </div>
 
         <div class="mb-3">
             <label for="foto" class="form-label">Foto</label>
-            <input type="file" class="form-control" id="foto" name="foto" required>
+            <input type="file" class="form-control" id="foto" name="foto">
         </div>
 
         <button type="submit" class="btn btn-primary">Tambah</button>

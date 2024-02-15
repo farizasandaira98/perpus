@@ -11,7 +11,7 @@ class BukuController extends Controller
     {
         $session = session();
         if (!$session->get('logged_in')) {
-            $session->setFlashdata('error', 'Perlu Login Untuk Akses Fitur Ini');
+            $session->setFlashdata('errors', ['Perlu Login Untuk Akses Fitur Ini']);
             return redirect()->to('/login');
         }
         $model = new BukuModel();
@@ -111,19 +111,51 @@ class BukuController extends Controller
     public function update($id)
     {
         $validation = $this->validate([
+            'kode_buku' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom kode buku wajib diisi.'
+                ],
+            ],
+            'nama_buku' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom nama buku wajib diisi.'
+                ],
+            ],
+            'nama_pengarang' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom nama pengarang wajib diisi.'
+                ],
+            ],
+            'nama_penerbit' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom nama penerbit wajib diisi.'
+                ],
+            ],
+            'tahun_terbit' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom tahun terbit wajib diisi.'
+                ],
+            ],
             'foto' => [
                 'rules' => 'uploaded[foto]|max_size[foto,1024]',
                 'errors' => [
-                    'uploaded' => 'The foto is required.',
-                    'max_size' => 'The foto size cannot exceed 1MB.',
+                    'uploaded' => 'Kolom foto wajib diisi.',
+                    'max_size' => 'Ukuran foto tidak boleh melebihi 1MB.',
                 ],
             ],
         ]);
+        
         if (!$validation) {
-            return view('buku/edit', [
-                'errors' => $this->validator->getErrors(),
-            ]);
+            // Flashing the validation errors
+            session()->setFlashdata('errors', $this->validator->getErrors());
+            return redirect()->back(); // Redirecting back to the previous page
         }
+        
         // Upload the foto to hosting
         $foto = $this->request->getFile('foto');
 
@@ -150,7 +182,6 @@ class BukuController extends Controller
             'nama_pengarang'  => $this->request->getVar('nama_pengarang'),
             'nama_penerbit'  => $this->request->getVar('nama_penerbit'),
             'tahun_terbit'  => $this->request->getVar('tahun_terbit'),
-            'created_at' => $this->request->getVar('created_at'),
             'updated_at' => $currentDateTime,
             'foto'  => $fotoName
         ];

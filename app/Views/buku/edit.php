@@ -12,13 +12,17 @@
 
 <body>
     <div class="container mt-4">
-        <h2>Edit Buku</h2>
-
-        <?php if (isset($errors)) : ?>
+    <?php if (session()->has('errors')) : ?>
             <div class="alert alert-danger">
-                <?= \Config\Services::validation()->listErrors(); ?>
+                <ul>
+                    <!-- Iterate through the errors and display them -->
+                    <?php foreach (session('errors') as $error) : ?>
+                        <li><?= esc($error) ?></li> <!-- Escape the error message to prevent XSS attacks -->
+                    <?php endforeach; ?>
+                </ul>
             </div>
         <?php endif; ?>
+        <h2>Edit Buku</h2>
         <form action="/buku/update/<?= esc($data['id']) ?>" method="post" enctype="multipart/form-data">
 
         <div class="mb-3">

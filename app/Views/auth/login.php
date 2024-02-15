@@ -32,8 +32,15 @@
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<form class="login100-form validate-form" action="/auth/login" method="post">
-					<?php if (session()->has('error')) : ?>
-					<div class="alert alert-danger"><?= session('error') ?></div>
+					<?php if (session()->has('errors')) : ?>
+						<div class="alert alert-danger">
+							<ul>
+								<!-- Iterate through the errors and display them -->
+								<?php foreach (session('errors') as $error) : ?>
+									<li><?= esc($error) ?></li> <!-- Escape the error message to prevent XSS attacks -->
+								<?php endforeach; ?>
+							</ul>
+						</div>
 					<?php endif; ?>
 					<span class="login100-form-title p-b-43">
 						Login Untuk Melanjutkan

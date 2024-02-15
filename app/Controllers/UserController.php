@@ -35,9 +35,12 @@ class UserController extends Controller
             'alamat' => $this->request->getVar('alamat'),
             'id_role' => $this->request->getVar('id_role')
         ];
-
-        $save = $model->insert($data);
-
+        try {
+            $save = $model->insert($data);
+        } catch (\Throwable $th) {
+            session()->setFlashdata('errors', [$th->getMessage()]);
+            return redirect()->to('/user/create');
+        }
         return redirect()->to('/user');
     }
 
@@ -60,22 +63,36 @@ class UserController extends Controller
             'id_role' => $this->request->getVar('id_role')
         ];
         $model = new UserModel();
-        $update = $model->update($id, $data);
-
+        try {
+            $update = $model->update($id, $data);
+        } catch (\Throwable $th) {
+            session()->setFlashdata('errors', [$th->getMessage()]);
+            return redirect()->to('/user/edit/' . $id);
+        }
         return redirect()->to('/user');
     }
 
     public function delete($id)
     {
         $model = new UserModel();
-        $model->delete($id);
+        try {
+            $model->delete($id);
+        } catch (\Throwable $th) {
+            session()->setFlashdata('errors', [$th->getMessage()]);
+            return redirect()->to('/user');
+        }
         return redirect()->to('/user');
     }
 
     public function search(){
         $model = new UserModel();
         $keyword = $this->request->getVar('search');
-        $data['users'] = $model->like('username', $keyword)->findAll();
+        try {
+            $data['users'] = $model->like('username', $keyword)->findAll();
+        } catch (\Throwable $th) {
+            session()->setFlashdata('errors', [$th->getMessage()]);
+            return redirect()->to('/user');
+        }
         return view('user/index', $data);
     }
 
@@ -83,6 +100,7 @@ class UserController extends Controller
     {
         $session = session();
         if ($session->get('logged_in')) {
+            $session->setFlashdata('error', 'Anda Sudah Login, Silahkan Logout Terlebih Dahulu');
             return redirect()->to('/');
         } else {
             return view('auth/login');
@@ -114,15 +132,16 @@ class UserController extends Controller
                 $session->set($ses_data);
                 return redirect()->to('/');
             } else {
-                $session->setFlashdata('msg', 'Wrong Password');
+                $session->setFlashdata('errors', ['Password Salah, Silahkan Ulang Lagi']);
                 return redirect()->to('/login');
             }
         } else {
-            $session->setFlashdata('msg', 'Username does not exist');
+            $session->setFlashdata('errors', ['Username Tidak Ditemukan, Silahkan Ulang Lagi']);
             return redirect()->to('/login');
         }
         } catch (Exception $e) {
-            echo "An exception occurred: " . $e->getMessage();
+            $session->setFlashdata('errors', ['Terjadi Kesalahan: '+$e->getMessage()]);
+            return redirect()->to('/login');
         }
         
     }
@@ -130,7 +149,12 @@ class UserController extends Controller
     public function logout()
     {
         $session = session();
-        $session->destroy();
+        try {
+            $session->destroy();
+        } catch (\Throwable $th) {
+            session()->setFlashdata('errors', [$th->getMessage()]);
+            return redirect()->to('/login');
+        }
         return redirect()->to('/login');
     }
 }

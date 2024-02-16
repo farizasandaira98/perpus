@@ -16941,11 +16941,15 @@
     </div>
 </form>
         </div>
-                        <div class="col-6">
-                            <a href="/buku/create" class="btn btn-primary" style="margin-left: 81%;">
-                                <i class="bi bi-plus"></i> Tambah
+                        <?php 
+                        if (session()->get('id_role') == 1) {
+                            echo "<div class='col-6'>
+                            <a href='/buku/create' class='btn btn-primary' style='margin-left: 81%;'>
+                                <i class='bi bi-plus'></i> Tambah
                             </a>
-                        </div>
+                            </div>";
+                        }
+                        ?>
                     </div>
             <div class="card-body p-3">
               <div class="row">
@@ -16979,9 +16983,11 @@
                             <th>
                                 Foto
                             </th>
+                            <?php if (session()->get('id_role') == 1) : ?>
                             <th>
                                 Kontrol
                             </th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -17002,14 +17008,16 @@
                                             <img src="<?= base_url('uploads/fotos/' . $data['foto']) ?>" alt="<?= $data['nama_buku'] ?>" class="img-fluid" width="100">
                                         <?php endif; ?>
                                     </td>
-                                    <td>
-                                        <a href="/buku/delete/<?= esc($data['id']) ?>" class="btn btn-sm btn-danger">
-                                            <i class="bi bi-trash fs-6"></i>
+                                    <?php if (session()->get('id_role') == 1) : ?>
+                                        <td>
+                                        <a href='/buku/delete/<?= esc($data['id']) ?>' class='btn btn-sm btn-danger'>
+                                            <i class='bi bi-trash fs-6'></i>
                                         </a>
-                                        <a href="/buku/edit/<?= esc($data['id']) ?>" class="btn btn-sm btn-warning">
-                                            <i class="bi bi-pencil-square fs-6"></i>
+                                        <a href='/buku/edit/<?= esc($data['id']) ?>' class='btn btn-sm btn-warning'>
+                                            <i class='bi bi-pencil-square fs-6'></i>
                                         </a>
                                     </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>

@@ -10,6 +10,11 @@ class UserController extends Controller
 
     public function index()
     {
+        $session = session();
+        if (!$session->get('logged_in')) {
+            $session->setFlashdata('errors', ['Perlu Login Untuk Akses Fitur Ini']);
+            return redirect()->to('/login');
+        }
         $model = new UserModel();
         $data['users'] = $model->orderBy('created_at', 'DESC')->findAll();
         return view('user/index', $data);
@@ -17,12 +22,83 @@ class UserController extends Controller
 
     public function create()
     {
+        $session = session();
+        if ($session->get('id_role') == 2) {
+            $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);
+            return redirect()->to('/');
+        }
         return view('user/create');
     }
 
     public function store()
     {
+        $session = session();
+        if ($session->get('id_role') == 2) {
+            $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);
+            return redirect()->to('/');
+        }
+
+        $validation = $this->validate([
+            'nama' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom nama wajib diisi.'
+                ],
+            ],
+            'username' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom username wajib diisi.'
+                ],
+            ],
+            'email' => [
+                'rules' => 'required|valid_email',
+                'errors' => [
+                    'required' => 'Kolom email wajib diisi.',
+                    'valid_email' => 'Format email tidak valid.'
+                ],
+            ],
+            'password' => [
+                'rules' => 'required|min_length[8]',
+                'errors' => [
+                    'required' => 'Kolom password wajib diisi.',
+                    'min_length' => 'Panjang password minimal 8 karakter.'
+                ],
+            ],
+            'pekerjaan' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom pekerjaan wajib diisi.'
+                ],
+            ],
+            'nomor_telepon' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom nomor telepon wajib diisi.'
+                ],
+            ],
+            'alamat' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom alamat wajib diisi.'
+                ],
+            ],
+            'id_role' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom role wajib diisi.'
+                ],
+            ],
+        ]);
+        
+        if (!$validation) {
+            // Flashing the validation errors
+            session()->setFlashdata('errors', $this->validator->getErrors());
+            return redirect()->back(); // Redirecting back to the previous page
+        }
+
         $model = new UserModel();
+
         $data = [
             'nama' => $this->request->getVar('nama'),
             'username' => $this->request->getVar('username'),
@@ -35,6 +111,7 @@ class UserController extends Controller
             'alamat' => $this->request->getVar('alamat'),
             'id_role' => $this->request->getVar('id_role')
         ];
+        
         try {
             $save = $model->insert($data);
         } catch (\Throwable $th) {
@@ -46,13 +123,78 @@ class UserController extends Controller
 
     public function edit($id)
     {
-        $model = new UserModel();
+        $session = session();
+        if ($session->get('id_role') == 2) {
+            $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);
+            return redirect()->to('/');
+        }
         $data['user'] = $model->find($id);
         return view('user/edit', $data);
     }
 
     public function update($id)
     {
+        $validation = $this->validate([
+            'nama' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom nama wajib diisi.'
+                ],
+            ],
+            'username' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom username wajib diisi.'
+                ],
+            ],
+            'email' => [
+                'rules' => 'required|valid_email',
+                'errors' => [
+                    'required' => 'Kolom email wajib diisi.',
+                    'valid_email' => 'Format email tidak valid.'
+                ],
+            ],
+            'password' => [
+                'rules' => 'required|min_length[8]',
+                'errors' => [
+                    'required' => 'Kolom password wajib diisi.',
+                    'min_length' => 'Panjang password minimal 8 karakter.'
+                ],
+            ],
+            'pekerjaan' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom pekerjaan wajib diisi.'
+                ],
+            ],
+            'nomor_telepon' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom nomor telepon wajib diisi.'
+                ],
+            ],
+            'alamat' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom alamat wajib diisi.'
+                ],
+            ],
+            'id_role' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom role wajib diisi.'
+                ],
+            ],
+        ]);
+        
+        if (!$validation) {
+            // Flashing the validation errors
+            session()->setFlashdata('errors', $this->validator->getErrors());
+            return redirect()->back(); // Redirecting back to the previous page
+        }
+
+        $model = new UserModel();
+        
         $data = [
             'nama' => $this->request->getVar('nama'),
             'email'  => $this->request->getVar('email'),
@@ -62,7 +204,9 @@ class UserController extends Controller
             'alamat' => $this->request->getVar('alamat'),
             'id_role' => $this->request->getVar('id_role')
         ];
+
         $model = new UserModel();
+
         try {
             $update = $model->update($id, $data);
         } catch (\Throwable $th) {
@@ -74,7 +218,14 @@ class UserController extends Controller
 
     public function delete($id)
     {
+        $session = session();
+        if ($session->get('id_role') == 2) {
+            $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);
+            return redirect()->to('/');
+        }
+
         $model = new UserModel();
+        
         try {
             $model->delete($id);
         } catch (\Throwable $th) {

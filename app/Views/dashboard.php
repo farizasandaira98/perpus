@@ -16775,7 +16775,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="/user">
+          <a class="nav-link" href="/user">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -16899,6 +16899,22 @@
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row">
+      <?php if (session()->has('errors')) : ?>
+                        <div style="width: 80%;">
+                        <div class="card mb-4 sm d-flex">
+                          <div class="card-body ">
+                          <ul>
+                                <!-- Iterate through the errors and display them -->
+                                <?php foreach (session('errors') as $error) : ?>
+                                    <li><?= esc($error) ?></li> <!-- Escape the error message to prevent XSS attacks -->
+                                <?php endforeach; ?>
+                            </ul>
+                          </div>
+                            
+                        </div>
+                        </div>
+                    <?php endif; ?>
+
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-body p-3">

@@ -24,6 +24,7 @@ class BukuController extends Controller
     {
         $session = session();
         if ($session->get('id_role') == 2) {
+            $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);
             return redirect()->to('/');
         }
         return view('buku/create');
@@ -102,6 +103,11 @@ class BukuController extends Controller
 
     public function edit($id)
     {
+        $session = session();
+        if ($session->get('id_role') == 2) {
+            $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);
+            return redirect()->to('/');
+        }
         $data = model('BukuModel')->find($id);
         return view('buku/edit', [
             'data' => $data,
@@ -191,6 +197,11 @@ class BukuController extends Controller
 
     public function delete($id)
     {
+        $session = session();
+        if ($session->get('id_role') == 2) {
+            $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);
+            return redirect()->to('/');
+        }
         $model = new BukuModel();
         $oldFoto = model('BukuModel')->find($id);
         $dataOldFoto = esc($oldFoto['foto']);

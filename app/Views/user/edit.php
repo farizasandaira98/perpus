@@ -12,10 +12,10 @@
     <div class="container mt-4">
         <h1>Edit Data User</h1>
         <form action="/user/update/<?= $user['id_user'] ?>" method="post">
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" id="username" name="username" value="<?= $user['username'] ?>" required>
-            </div>
+            </div> -->
             <div class="mb-3">
                 <label for="name" class="form-label">Nama Lengkap</label>
                 <input type="text" class="form-control" id="name" name="nama" value="<?= $user['nama'] ?>">

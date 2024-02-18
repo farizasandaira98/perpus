@@ -6,7 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <?php if(session()->get('id_role') == 1) : ?>
     <title>Tambah Data User</title>
+    <?php else :?>
+    <title>Form Registrasi</title>
+    <?php endif?>
 </head>
 <body>
     <div class="container mt-4">
@@ -21,9 +25,6 @@
             </div>
         <?php endif; ?>
         <h2>Tambah User</h2>
-        <?php if(session()->getFlashdata('msg')):?>
-            <div class="alert alert-danger"><?= session()->getFlashdata('msg') ?></div>
-        <?php endif;?>
         <form action="/user/post" method="post">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
@@ -53,6 +54,7 @@
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email">
             </div>
+            <?php if(session()->has('logged_in') || session()->get('id_role') == 2 ) : ?>
             <div class="mb-3">
                 <label for="role" class="form-label">Peran</label>
                 <select class="form-select" id="role" name="id_role">
@@ -60,8 +62,14 @@
                     <option value=2>User</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <a href="/user" class="btn btn-secondary">Kembali</a>
+            <?php if(session()->get('id_role') == 1) : ?>
+                <a href="/user/create" class="btn btn-secondary">Kembali</a>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            <?php endif; ?>
+            <?php else : ?>
+                <a href="/" class="btn btn-secondary">Kembali</a>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            <?php endif; ?>
         </form>
     </div>
 </body>

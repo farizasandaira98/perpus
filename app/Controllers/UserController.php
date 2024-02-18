@@ -27,18 +27,29 @@ class UserController extends Controller
             $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);
             return redirect()->to('/');
         }
+        if ($session->has('logged_in')) {
+            $session->setFlashdata('errors', ['Anda Sudah Login, Silahkan Logout Terlebih Dahulu']);
+            return redirect()->to('/');
+        }
         return view('user/create');
     }
 
     public function store()
     {
+        $idrole = 2;
         $session = session();
+
+        if ($session->has('logged_in')) {
+            $session->setFlashdata('errors', ['Anda Sudah Login, Silahkan Logout Terlebih Dahulu']);
+            return redirect()->to('/');
+        }
+
         if ($session->get('id_role') == 2) {
             $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);
             return redirect()->to('/');
         }
 
-        $validation = $this->validate([
+        $validationRules = [
             'nama' => [
                 'rules' => 'required',
                 'errors' => [
@@ -83,13 +94,23 @@ class UserController extends Controller
                     'required' => 'Kolom alamat wajib diisi.'
                 ],
             ],
-            'id_role' => [
+        ];
+
+        // Check if id_role is 1, then add validation for id_role
+        if (session()->id_role == 1) {
+            $validationRules['id_role'] = [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Kolom role wajib diisi.'
                 ],
-            ],
-        ]);
+            ];
+        }
+
+        $validation = $this->validate($validationRules);
+        
+        if($this->request->getVar('id_role')) {
+            $idrole = $this->request->getVar('id_role');
+        }
         
         if (!$validation) {
             // Flashing the validation errors
@@ -109,7 +130,7 @@ class UserController extends Controller
             'pekerjaan' => $this->request->getVar('pekerjaan'),
             'nomor_telepon' => $this->request->getVar('nomor_telepon'),
             'alamat' => $this->request->getVar('alamat'),
-            'id_role' => $this->request->getVar('id_role')
+            'id_role' => $idrole
         ];
         
         try {
@@ -134,7 +155,8 @@ class UserController extends Controller
 
     public function update($id)
     {
-        $validation = $this->validate([
+        $idrole = 2;
+        $validationRules = [
             'nama' => [
                 'rules' => 'required',
                 'errors' => [
@@ -179,13 +201,23 @@ class UserController extends Controller
                     'required' => 'Kolom alamat wajib diisi.'
                 ],
             ],
-            'id_role' => [
+        ];
+
+        // Check if id_role is 1, then add validation for id_role
+        if (session()->id_role == 1) {
+            $validationRules['id_role'] = [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Kolom role wajib diisi.'
                 ],
-            ],
-        ]);
+            ];
+        }
+
+        $validation = $this->validate($validationRules);
+        
+        if($this->request->getVar('id_role')) {
+            $idrole = $this->request->getVar('id_role');
+        }
         
         if (!$validation) {
             // Flashing the validation errors
@@ -225,7 +257,7 @@ class UserController extends Controller
         }
 
         $model = new UserModel();
-        
+
         try {
             $model->delete($id);
         } catch (\Throwable $th) {
@@ -251,7 +283,7 @@ class UserController extends Controller
     {
         $session = session();
         if ($session->get('logged_in')) {
-            $session->setFlashdata('error', 'Anda Sudah Login, Silahkan Logout Terlebih Dahulu');
+            $session->setFlashdata('errors', ['Anda Sudah Login, Silahkan Logout Terlebih Dahulu']);
             return redirect()->to('/');
         } else {
             return view('auth/login');

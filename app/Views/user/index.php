@@ -16952,11 +16952,13 @@
     </div>
 </form>
                         </div>
+                        <?php if (session()->get('id_role') == '1') : ?>
                         <div class="col-6">
                             <a href="/user/create" class="btn btn-primary" style="margin-left: 81%;">
                                 <i class="bi bi-plus"></i> Tambah
                             </a>
                         </div>
+                        <?php endif ?>
                     </div>
             <div class="card-body p-3">
               <div class="row">
@@ -16993,9 +16995,11 @@
                             <th>
                                 Diubah
                             </th>
+                            <?php if(session()->get('id_role') == '1') : ?>
                             <th>
                                 Kontrol
                             </th>
+                            <?php endif ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -17013,6 +17017,7 @@
                                     <td><?= esc($data['email']) ?></td>
                                     <td><?= esc($data['created_at']) ?></td>
                                     <td><?= esc($data['updated_at']) ?></td>
+                                    <?php if(session()->get('id_role') == '1') : ?>
                                     <td>
                                         <a href="/user/delete/<?= esc($data['id_user']) ?>" class="btn btn-sm btn-danger">
                                             <i class="bi bi-trash fs-6"></i>
@@ -17021,6 +17026,7 @@
                                             <i class="bi bi-pencil-square fs-6"></i>
                                         </a>
                                     </td>
+                                    <?php endif ?>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>

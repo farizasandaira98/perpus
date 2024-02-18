@@ -282,7 +282,7 @@ class UserController extends Controller
     public function auth()
     {
         $session = session();
-        if ($session->get('logged_in')) {
+        if ($session->get('logged_in') && $session->get('id_role') == 2) {
             $session->setFlashdata('errors', ['Anda Sudah Login, Silahkan Logout Terlebih Dahulu']);
             return redirect()->to('/');
         } else {

@@ -144,6 +144,7 @@ class UserController extends Controller
 
     public function edit($id)
     {
+        $model = new UserModel();
         $session = session();
         if ($session->get('id_role') == 2) {
             $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);

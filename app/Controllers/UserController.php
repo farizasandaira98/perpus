@@ -35,12 +35,7 @@ class UserController extends Controller
         $idrole = 2;
         $session = session();
 
-        if ($session->has('logged_in')) {
-            $session->setFlashdata('errors', ['Anda Sudah Login, Silahkan Logout Terlebih Dahulu']);
-            return redirect()->to('/');
-        }
-
-        if ($session->get('id_role') == 2) {
+        if ($session->get('id_role') == 2 && $session->has('logged_in')) {
             $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);
             return redirect()->to('/');
         }

@@ -17052,7 +17052,7 @@
               <div class="copyright text-center text-sm text-muted text-lg-start">
                 ©
                 2024 Dibuat Menggunakan Template <a href="https://www.creative-tim.com" class="font-weight-bold"
-                  target="_blank">Creative Tim</a> Oleh Rija</div>
+                  target="_blank">Creative Tim</a></div>
             </div>
             <div class="col-lg-6">
 

@@ -164,24 +164,11 @@ class UserController extends Controller
                     'required' => 'Kolom nama wajib diisi.'
                 ],
             ],
-            'username' => [
-                'rules' => 'required',
-                'errors' => [
-                    'required' => 'Kolom username wajib diisi.'
-                ],
-            ],
             'email' => [
                 'rules' => 'required|valid_email',
                 'errors' => [
                     'required' => 'Kolom email wajib diisi.',
                     'valid_email' => 'Format email tidak valid.'
-                ],
-            ],
-            'password' => [
-                'rules' => 'required|min_length[8]',
-                'errors' => [
-                    'required' => 'Kolom password wajib diisi.',
-                    'min_length' => 'Panjang password minimal 8 karakter.'
                 ],
             ],
             'pekerjaan' => [
@@ -235,7 +222,7 @@ class UserController extends Controller
             'pekerjaan' => $this->request->getVar('pekerjaan'),
             'nomor_telepon' => $this->request->getVar('nomor_telepon'),
             'alamat' => $this->request->getVar('alamat'),
-            'id_role' => $this->request->getVar('id_role')
+            'id_role' => $idrole
         ];
 
         $model = new UserModel();

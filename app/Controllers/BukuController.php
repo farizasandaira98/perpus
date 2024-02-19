@@ -217,8 +217,7 @@ class BukuController extends Controller
         $model = new BukuModel();
         $keyword = $this->request->getVar('search');
         $bukubyid = $model->like('nama_buku', $keyword)->findAll();
-        $bukuwithoutsearchcount = $model->like('nama_buku', $keyword)->where('search_count >', 0)->findAll();
-        $data['buku'] = $bukuwithoutsearchcount;
+        $data['buku'] = $bukubyid;
 
         foreach ($bukubyid as $book) {
             $model->update($book['id'], ['search_count' => $book['search_count'] + 1]);

@@ -26,7 +26,11 @@ class Home extends BaseController
         $model_user = new UserModel();
         $data['buku'] = $model_buku->countAll();
         $data['user'] = $model_user->countAll();
-        $data['chart_buku'] = $model_buku->orderBy('search_count', 'DESC')->limit(5)->findAll();
+        $data['chart_buku'] = $model_buku
+                        ->where('search_count >', 0)
+                        ->orderBy('search_count', 'DESC')
+                        ->limit(5)
+                        ->findAll();
         $data['greetings'] = $greetings;
 
         log_message('debug', 'Rendering dashboard view');

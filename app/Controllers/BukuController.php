@@ -63,6 +63,18 @@ class BukuController extends Controller
                     'required' => 'Kolom tahun terbit wajib diisi.'
                 ],
             ],
+            'jumlah_buku' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom jumlah buku wajib diisi.'
+                ],
+            ],
+            'klasifikasi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom klasifikasi wajib diisi.'
+                ],
+            ],
             'foto' => [
                 'rules' => 'uploaded[foto]|max_size[foto,1024]',
                 'errors' => [
@@ -92,6 +104,8 @@ class BukuController extends Controller
             'nama_pengarang'  => $this->request->getVar('nama_pengarang'),
             'nama_penerbit'  => $this->request->getVar('nama_penerbit'),
             'tahun_terbit'  => $this->request->getVar('tahun_terbit'),
+            'jumlah_buku'  => $this->request->getVar('jumlah_buku'),
+            'klasifikasi'  => $this->request->getVar('klasifikasi'),
             'created_at' => $currentDateTime,
             'updated_at' => $currentDateTime,
             'foto'  => $fotoName,
@@ -147,11 +161,16 @@ class BukuController extends Controller
                     'required' => 'Kolom tahun terbit wajib diisi.'
                 ],
             ],
-            'foto' => [
-                'rules' => 'uploaded[foto]|max_size[foto,1024]',
+            'jumlah_buku' => [
+                'rules' => 'required',
                 'errors' => [
-                    'uploaded' => 'Kolom foto wajib diisi.',
-                    'max_size' => 'Ukuran foto tidak boleh melebihi 1MB.',
+                    'required' => 'Kolom jumlah buku wajib diisi.'
+                ],
+            ],
+            'klasifikasi' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom klasifikasi wajib diisi.'
                 ],
             ],
         ]);
@@ -162,13 +181,10 @@ class BukuController extends Controller
             return redirect()->back(); // Redirecting back to the previous page
         }
         
-        // Upload the foto to hosting
         $foto = $this->request->getFile('foto');
-
         if ($foto) {
             $fotoName = $foto->getRandomName();
             $foto->move('uploads/fotos/', $fotoName);
-
             // Delete the old foto
             $oldFoto = model('BukuModel')->find($id);
             $dataOldFoto = esc($oldFoto['foto']);
@@ -176,7 +192,7 @@ class BukuController extends Controller
                 unlink('uploads/fotos/' . $dataOldFoto);
             }
         } else {
-            $fotoName = '';
+            $fotoName = $this->request->getVar('foto');
         }
 
         // Update the book
@@ -188,6 +204,8 @@ class BukuController extends Controller
             'nama_pengarang'  => $this->request->getVar('nama_pengarang'),
             'nama_penerbit'  => $this->request->getVar('nama_penerbit'),
             'tahun_terbit'  => $this->request->getVar('tahun_terbit'),
+            'jumlah_buku'  => $this->request->getVar('jumlah_buku'),
+            'klasifikasi'  => $this->request->getVar('klasifikasi'),
             'updated_at' => $currentDateTime,
             'foto'  => $fotoName
         ];
@@ -213,16 +231,31 @@ class BukuController extends Controller
         return redirect()->to('/buku');
     }
 
-    public function search(){
+    public function search() {
         $model = new BukuModel();
         $keyword = $this->request->getVar('search');
-        $bukubyid = $model->like('nama_buku', $keyword)->findAll();
+    
+        $builder = $model->builder(); // Create a new Query Builder instance
+    
+        // Build LIKE conditions for each searchable field
+        $builder->like('nama_buku', $keyword);
+        $builder->orLike('kode_buku', $keyword);
+        $builder->orLike('nama_pengarang', $keyword);
+        $builder->orLike('nama_penerbit', $keyword);
+        $builder->orLike('tahun_terbit', $keyword);
+        $builder->orLike('jumlah_buku', $keyword);
+        $builder->orLike('klasifikasi', $keyword);
+    
+        // Execute the query to retrieve matching books
+        $bukubyid = $builder->get()->getResultArray();
+    
         $data['buku'] = $bukubyid;
-
+    
         foreach ($bukubyid as $book) {
             $model->update($book['id'], ['search_count' => $book['search_count'] + 1]);
         }
-
+    
         return view('buku/index', $data);
     }
+    
 }

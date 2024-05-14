@@ -51,6 +51,16 @@
         </div>
 
         <div class="mb-3">
+            <label for="jumlah_buku" class="form-label">Jumlah Buku</label>
+            <input type="number" class="form-control" id="jumlah_buku" name="jumlah_buku">
+        </div>
+        
+        <div class="mb-3">
+            <label for="klasifikasi" class="form-label">Klasifikasi</label>
+            <input type="text" class="form-control" id="klasifikasi" name="klasifikasi">
+        </div>
+
+        <div class="mb-3">
             <label for="foto" class="form-label">Foto</label>
             <input type="file" class="form-control" id="foto" name="foto">
         </div>

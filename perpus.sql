@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Feb 18, 2024 at 01:02 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.1.6
+-- Host: 127.0.0.1
+-- Generation Time: May 15, 2024 at 01:06 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 8.1.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,6 +34,8 @@ CREATE TABLE `buku` (
   `nama_pengarang` varchar(255) NOT NULL,
   `nama_penerbit` varchar(255) NOT NULL,
   `tahun_terbit` varchar(255) NOT NULL,
+  `jumlah_buku` int(255) NOT NULL,
+  `klasifikasi` varchar(255) NOT NULL,
   `foto` varchar(255) NOT NULL,
   `search_count` bigint(255) NOT NULL,
   `created_at` date NOT NULL,
@@ -94,7 +96,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`

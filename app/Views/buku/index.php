@@ -1,4 +1,4 @@
-  <html lang="en">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -16975,6 +16975,12 @@
                                 Tahun Terbit
                             </th>
                             <th>
+                                Jumlah Buku
+                            </th>
+                            <th>
+                                Klasifikasi
+                            </th>
+                            <th>
                                 Dibuat
                             </th>
                             <th>
@@ -17001,6 +17007,8 @@
                                     <td><?= esc($data['nama_pengarang']) ?></td>
                                     <td><?= esc($data['nama_penerbit']) ?></td>
                                     <td><?= esc($data['tahun_terbit']) ?></td>
+                                    <td><?= esc($data['jumlah_buku']) ?> Buah</td>
+                                    <td><?= esc($data['klasifikasi']) ?></td>
                                     <td><?= esc($data['created_at']) ?></td>
                                     <td><?= esc($data['updated_at']) ?></td>
                                     <td>

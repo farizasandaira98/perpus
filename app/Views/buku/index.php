@@ -16958,7 +16958,10 @@
                 <div class="scrollable-table-container">
                   <table class="table table-stripped">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
+                            <th>
+                                Foto
+                            </th>
                             <th>
                                 Kode Buku
                             </th>
@@ -16986,9 +16989,6 @@
                             <th>
                                 Diperbarui
                             </th>
-                            <th>
-                                Foto
-                            </th>
                             <?php if (session()->get('id_role') == 1) : ?>
                             <th>
                                 Kontrol
@@ -17001,7 +17001,12 @@
                             <p>Tidak ada data buku.</p>
                         <?php else : ?> 
                             <?php foreach ($buku as $data) : ?>
-                                <tr>
+                                <tr class="text-center">
+                                    <td>
+                                        <?php if ($data['foto']) : ?>
+                                            <img src="<?= base_url('uploads/fotos/' . $data['foto']) ?>" alt="<?= $data['nama_buku'] ?>" class="img-fluid" width="100">
+                                        <?php endif; ?>
+                                    </td>
                                     <td><?= esc($data['kode_buku']) ?></td>
                                     <td><?= esc($data['nama_buku']) ?></td>
                                     <td><?= esc($data['nama_pengarang']) ?></td>
@@ -17011,11 +17016,6 @@
                                     <td><?= esc($data['klasifikasi']) ?></td>
                                     <td><?= esc($data['created_at']) ?></td>
                                     <td><?= esc($data['updated_at']) ?></td>
-                                    <td>
-                                        <?php if ($data['foto']) : ?>
-                                            <img src="<?= base_url('uploads/fotos/' . $data['foto']) ?>" alt="<?= $data['nama_buku'] ?>" class="img-fluid" width="100">
-                                        <?php endif; ?>
-                                    </td>
                                     <?php if (session()->get('id_role') == 1) : ?>
                                         <td>
                                         <a href='/buku/delete/<?= esc($data['id']) ?>' class='btn btn-sm btn-danger'>

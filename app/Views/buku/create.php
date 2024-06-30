@@ -57,7 +57,19 @@
         
         <div class="mb-3">
             <label for="klasifikasi" class="form-label">Klasifikasi</label>
-            <input type="text" class="form-control" id="klasifikasi" name="klasifikasi">
+            <select name="klasifikasi" class="form-control custom-form-control">
+                              <option value="">Pilih Klasifikasi</option>
+                              <option value="Karya Umum">Karya Umum</option>
+                              <option value="Agama">Agama</option>
+                              <option value="Ilmu-ilmu Sosial">Ilmu-ilmu Sosial</option>
+                              <option value="Bahasa">Bahasa</option>
+                              <option value="Buku Paket">Buku Paket</option>
+                              <option value="Teknologi">Teknologi</option>
+                              <option value="Seni Dan Hiburan">Seni Dan Hiburan</option>
+                              <option value="Olahraga">Olahraga</option>
+                              <option value="Geografi">Geografi</option>
+                              <option value="Sejarah">Sejarah</option>
+            </select>
         </div>
 
         <div class="mb-3">

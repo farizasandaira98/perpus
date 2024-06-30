@@ -11,6 +11,7 @@
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <!-- Nucleo Icons -->
   <link href="<?= base_url('template/assets/css/nucleo-icons.css') ?>" rel="stylesheet">
   <link href="<?= base_url('template/assets/css/nucleo-svg.css') ?>" rel="stylesheet"> 
@@ -16926,25 +16927,86 @@
       <div class="col-lg-12 mb-lg-0 mb-4">
           <div class="card">
           <div class="row p-4 justify-content-between align-items-center">
-          <div class="col-6">
-          <form action="/buku/search" method="post" class="custom-input-group">
-    <input type="text" name="search" class="form-control custom-form-control" placeholder="Cari Buku" aria-label="Cari Buku" aria-describedby="basic-addon2">
-    <div class="input-group-append custom-input-group-append">
-        <button class="btn btn-outline-secondary custom-btn" type="submit">
-            <i class="fa fa-search"></i>
-        </button>
-        <a href="/buku">
-        <button class="btn btn-outline-secondary custom-btn" type="button">
-          <i class="fa fa-refresh"></i>
-        </button>
-        </a>
-    </div>
-</form>
+          <div class="col-8">
+          <form action="/buku/search" method="post" class="">
+          <div class="row d-flex flex-row">
+          <div id="searchInputs" class="w-50">
+                  <div class="mb-3" id="keywordInput">
+                      <input type="text" name="keyword" class="form-control custom-form-control" placeholder="Masukkan Kata Kunci" aria-label="Masukkan Kata Kunci">
+                  </div>
+                  <div id="advancedSearchFields" style="display: none;">
+                      <div class="mb-3">
+                          <input type="text" name="kode_buku" class="form-control custom-form-control" placeholder="Kode Buku">
+                      </div>
+                      <div class="mb-3">
+                          <input type="text" name="nama_buku" class="form-control custom-form-control" placeholder="Nama Buku">
+                      </div>
+                      <div class="mb-3">
+                          <input type="text" name="nama_pengarang" class="form-control custom-form-control" placeholder="Nama Pengarang">
+                      </div>
+                      <div class="mb-3">
+                          <input type="text" name="nama_penerbit" class="form-control custom-form-control" placeholder="Nama Penerbit">
+                      </div>
+                      <div class="mb-3">
+                          <input type="text" name="tahun_terbit" class="form-control custom-form-control" placeholder="Tahun Terbit">
+                      </div>
+                      <div class="mb-3">
+                          <select name="klasifikasi" class="form-control custom-form-control">
+                              <option value="">Pilih Klasifikasi</option>
+                              <option value="Karya Umum">Karya Umum</option>
+                              <option value="Agama">Agama</option>
+                              <option value="Ilmu-ilmu Sosial">Ilmu-ilmu Sosial</option>
+                              <option value="Bahasa">Bahasa</option>
+                              <option value="Buku Paket">Buku Paket</option>
+                              <option value="Teknologi">Teknologi</option>
+                              <option value="Seni Dan Hiburan">Seni Dan Hiburan</option>
+                              <option value="Olahraga">Olahraga</option>
+                              <option value="Geografi">Geografi</option>
+                              <option value="Sejarah">Sejarah</option>
+                          </select>
+                      </div>
+                  </div>
+              </div>
+              <div class="w-50 h-50">
+                  <button class="btn btn-outline-secondary custom-btn" type="submit">
+                      <i class="fa fa-search"></i>
+                  </button>
+                  <a href="/buku">
+                      <button class="btn btn-outline-secondary custom-btn" type="button">
+                          <i class="fa fa-refresh"></i>
+                      </button>
+                  </a>
+              </div>
+          </div>
+          <div class="row">
+          <div class="mb-3">
+                  <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="advancedSearch" name="advanced_search">
+                      <label class="form-check-label" for="advancedSearch">
+                          Pencarian Lanjutan
+                      </label>
+                  </div>
+              </div>
+          </div>
+          </form>
+          <script>
+              document.getElementById('advancedSearch').addEventListener('change', function() {
+                  var keywordInput = document.getElementById('keywordInput');
+                  var advancedFields = document.getElementById('advancedSearchFields');
+                  if (this.checked) {
+                      keywordInput.style.display = 'none';
+                      advancedFields.style.display = 'block';
+                  } else {
+                      keywordInput.style.display = 'block';
+                      advancedFields.style.display = 'none';
+                  }
+              });
+          </script>
         </div>
                         <?php 
                         if (session()->get('id_role') == 1) {
-                            echo "<div class='col-6'>
-                            <a href='/buku/create' class='btn btn-primary' style='margin-left: 81%;'>
+                            echo "<div class='col-4'>
+                            <a href='/buku/create' class='btn btn-primary' style='margin-left: 70%;'>
                                 <i class='bi bi-plus'></i> Tambah
                             </a>
                             </div>";
@@ -16956,6 +17018,13 @@
                 <div class="col-lg-12">
                   <div class="d-flex flex-column h-100">
                 <div class="scrollable-table-container">
+                <?php if (isset($execution_time) && isset($buku)): ?>
+                                <tr>
+                                    <td colspan="<?= session()->get('id_role') == 1 ? '11' : '10' ?>" class="text-center">
+                                        <p>Ditemukan <?= count($buku) ?> buku dalam <?= $execution_time ?> detik.</p>
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
                   <table class="table table-stripped">
                     <thead>
                         <tr class="text-center">

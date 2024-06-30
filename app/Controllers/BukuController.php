@@ -233,28 +233,55 @@ class BukuController extends Controller
 
     public function search() {
         $model = new BukuModel();
-        $keyword = $this->request->getVar('search');
-    
-        $builder = $model->builder(); // Create a new Query Builder instance
-    
-        // Build LIKE conditions for each searchable field
-        $builder->like('nama_buku', $keyword);
-        $builder->orLike('kode_buku', $keyword);
-        $builder->orLike('nama_pengarang', $keyword);
-        $builder->orLike('nama_penerbit', $keyword);
-        $builder->orLike('tahun_terbit', $keyword);
-        $builder->orLike('jumlah_buku', $keyword);
-        $builder->orLike('klasifikasi', $keyword);
-    
-        // Execute the query to retrieve matching books
+        $startTime = microtime(true);
+
+        $keyword = $this->request->getPost('keyword');
+        $advancedSearch = $this->request->getPost('advanced_search');
+
+        $builder = $model->builder();
+
+        if ($advancedSearch) {
+            // Advanced search
+            $kode_buku = $this->request->getPost('kode_buku');
+            $nama_buku = $this->request->getPost('nama_buku');
+            $nama_pengarang = $this->request->getPost('nama_pengarang');
+            $nama_penerbit = $this->request->getPost('nama_penerbit');
+            $tahun_terbit = $this->request->getPost('tahun_terbit');
+            $klasifikasi = $this->request->getPost('klasifikasi');
+
+            $builder->groupStart();
+            if (!empty($kode_buku)) $builder->like('kode_buku', $kode_buku);
+            if (!empty($nama_buku)) $builder->like('nama_buku', $nama_buku);
+            if (!empty($nama_pengarang)) $builder->like('nama_pengarang', $nama_pengarang);
+            if (!empty($nama_penerbit)) $builder->like('nama_penerbit', $nama_penerbit);
+            if (!empty($tahun_terbit)) $builder->like('tahun_terbit', $tahun_terbit);
+            if (!empty($klasifikasi)) $builder->like('klasifikasi', $klasifikasi);
+            $builder->groupEnd();
+        } else {
+            // Simple search (keyword searches all columns)
+            $builder->groupStart()
+                ->like('kode_buku', $keyword)
+                ->orLike('nama_buku', $keyword)
+                ->orLike('nama_pengarang', $keyword)
+                ->orLike('nama_penerbit', $keyword)
+                ->orLike('tahun_terbit', $keyword)
+                ->orLike('jumlah_buku', $keyword)
+                ->orLike('klasifikasi', $keyword)
+                ->groupEnd();
+        }
+
         $bukubyid = $builder->get()->getResultArray();
-    
+
+        $endTime = microtime(true);
+        $executionTime = $endTime - $startTime;
+
         $data['buku'] = $bukubyid;
-    
+        $data['execution_time'] = number_format($executionTime, 4);
+
         foreach ($bukubyid as $book) {
             $model->update($book['id'], ['search_count' => $book['search_count'] + 1]);
         }
-    
+
         return view('buku/index', $data);
     }
     

@@ -16885,11 +16885,11 @@
     <?php if(session()->has('username')) : ?>
         <!-- If the user is logged in, show username and a dropdown for sign out -->
         <div class="dropdown">
-            <a href="#" class="nav-link font-weight-bold px-0 text-body dropdown-toggle" data-bs-toggle="dropdown">
+            <a href="#" class="nav-link font-weight-bold px-0 text-body dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user me-sm-1" aria-hidden="true"></i>
                 <span class="d-sm-inline d-none"><?= session('username') ?></span>
             </a>
-            <ul class="dropdown-menu" style="width: 10px;">
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                 <li><a class="dropdown-item" href="/logout">Keluar</a></li>
             </ul>
         </div>
@@ -16901,6 +16901,27 @@
         </a>
     <?php endif; ?>
 </li>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var dropdownToggle = document.querySelector('.dropdown-toggle');
+    var dropdownMenu = document.querySelector('.dropdown-menu');
+    
+    if (dropdownToggle && dropdownMenu) {
+        dropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        // Close the dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+    }
+});
+</script>
 
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link p-0 text-body" id="iconNavbarSidenav">

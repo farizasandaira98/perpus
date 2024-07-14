@@ -258,21 +258,7 @@ class BukuController extends Controller
             if (!empty($klasifikasi)) $builder->like('klasifikasi', $klasifikasi);
             $builder->groupEnd();
         } else {
-            $keywords = explode(' ', $keyword);
-
-            $builder->groupStart();
-            foreach ($keywords as $word) {
-                $builder->groupStart()
-                    ->like('kode_buku', $word)
-                    ->orLike('nama_buku', $word)
-                    ->orLike('nama_pengarang', $word)
-                    ->orLike('nama_penerbit', $word)
-                    ->orLike('tahun_terbit', $word)
-                    ->orLike('jumlah_buku', $word)
-                    ->orLike('klasifikasi', $word)
-                    ->groupEnd();
-            }
-            $builder->groupEnd();
+            $builder->where('MATCH(kode_buku, nama_buku, nama_pengarang, nama_penerbit, CONCAT(tahun_terbit), klasifikasi) AGAINST ("' . $keyword . '")');
         }
 
         $bukubyid = $builder->get()->getResultArray();

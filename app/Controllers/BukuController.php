@@ -273,20 +273,6 @@ class BukuController extends Controller
                     ->groupEnd();
             }
             $builder->groupEnd();
-            
-            $builder->orGroupStart();
-            foreach ($keywords as $word) {
-                $builder->groupStart()
-                    ->like('kode_buku', $word, 'both')
-                    ->orLike('nama_buku', $word, 'both')
-                    ->orLike('nama_pengarang', $word, 'both')
-                    ->orLike('nama_penerbit', $word, 'both')
-                    ->orLike('tahun_terbit', $word, 'both')
-                    ->orLike('jumlah_buku', $word, 'both')
-                    ->orLike('klasifikasi', $word, 'both')
-                    ->groupEnd();
-            }
-            $builder->groupEnd();
         }
 
         $bukubyid = $builder->get()->getResultArray();

@@ -259,20 +259,24 @@ class BukuController extends Controller
             $builder->groupEnd();
         } else {
             // Simple search (keyword searches all columns)
-            $keywords = explode(' ', $keyword);
-            $builder->groupStart();
-            foreach ($keywords as $word) {
-                $builder->groupStart()
-                    ->like('kode_buku', $word)
-                    ->orLike('nama_buku', $word)
-                    ->orLike('nama_pengarang', $word)
-                    ->orLike('nama_penerbit', $word)
-                    ->orLike('tahun_terbit', $word)
-                    ->orLike('jumlah_buku', $word)
-                    ->orLike('klasifikasi', $word)
-                    ->groupEnd();
-            }
-            $builder->groupEnd();
+            $builder->groupStart()
+                ->like('kode_buku', $keyword)
+                ->orLike('nama_buku', $keyword)
+                ->orLike('nama_pengarang', $keyword)
+                ->orLike('nama_penerbit', $keyword)
+                ->orLike('tahun_terbit', $keyword)
+                ->orLike('jumlah_buku', $keyword)
+                ->orLike('klasifikasi', $keyword)
+                ->orGroupStart()
+                    ->like('kode_buku', $keyword, 'both')
+                    ->orLike('nama_buku', $keyword, 'both')
+                    ->orLike('nama_pengarang', $keyword, 'both')
+                    ->orLike('nama_penerbit', $keyword, 'both')
+                    ->orLike('tahun_terbit', $keyword, 'both')
+                    ->orLike('jumlah_buku', $keyword, 'both')
+                    ->orLike('klasifikasi', $keyword, 'both')
+                ->groupEnd()
+                ->groupEnd();
         }
 
         $bukubyid = $builder->get()->getResultArray();

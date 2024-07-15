@@ -277,13 +277,13 @@ class BukuController extends Controller
         // Ensuring that all keywords must appear in the result
         foreach ($keywords as $word) {
             $builder->groupStart()
-                ->like('kode_buku', $word)
-                ->orLike('nama_buku', $word)
-                ->orLike('nama_pengarang', $word)
-                ->orLike('nama_penerbit', $word)
-                ->orLike('tahun_terbit', $word)
-                ->orLike('jumlah_buku', $word)
-                ->orLike('klasifikasi', $word)
+                ->like('kode_buku', $word, 'both')
+                ->orLike('nama_buku', $word, 'both')
+                ->orLike('nama_pengarang', $word, 'both')
+                ->orLike('nama_penerbit', $word, 'both')
+                ->orLike('tahun_terbit', $word, 'both')
+                ->orLike('jumlah_buku', $word, 'both')
+                ->orLike('klasifikasi', $word, 'both')
                 ->groupEnd();
         }
     

@@ -258,35 +258,19 @@ class BukuController extends Controller
             if (!empty($klasifikasi)) $builder->like('klasifikasi', $klasifikasi);
             $builder->groupEnd();
         } else {
-            $keywords = explode(' ', $keyword);
-
+        $keywords = explode(' ', $keyword);
         $builder->groupStart();
         foreach ($keywords as $word) {
-            $builder->groupStart()
-                ->like('kode_buku', $word)
-                ->orLike('nama_buku', $word)
-                ->orLike('nama_pengarang', $word)
-                ->orLike('nama_penerbit', $word)
-                ->orLike('tahun_terbit', $word)
-                ->orLike('jumlah_buku', $word)
-                ->orLike('klasifikasi', $word)
-                ->groupEnd();
+            $builder->orGroupStart();
+            $builder->like('kode_buku', $word, 'both');
+            $builder->orLike('nama_buku', $word, 'both');
+            $builder->orLike('nama_pengarang', $word, 'both');
+            $builder->orLike('nama_penerbit', $word, 'both');
+            $builder->orLike('tahun_terbit', $word, 'both');
+            $builder->orLike('klasifikasi', $word, 'both');
+            $builder->groupEnd();
         }
         $builder->groupEnd();
-
-        // Ensuring that all keywords must appear in the result
-        foreach ($keywords as $word) {
-            $builder->groupStart()
-                ->like('kode_buku', $word, 'both')
-                ->orLike('nama_buku', $word, 'both')
-                ->orLike('nama_pengarang', $word, 'both')
-                ->orLike('nama_penerbit', $word, 'both')
-                ->orLike('tahun_terbit', $word, 'both')
-                ->orLike('jumlah_buku', $word, 'both')
-                ->orLike('klasifikasi', $word, 'both')
-                ->groupEnd();
-        }
-    
         }
 
         $bukubyid = $builder->get()->getResultArray();

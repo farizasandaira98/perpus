@@ -29,8 +29,7 @@ class Home extends BaseController
         $data['chart_buku'] = $model_buku
                         ->where('search_count >', 0)
                         ->orderBy('search_count', 'DESC')
-                        ->limit(5)
-                        ->findAll();
+                        ->findAll(5);
         $data['greetings'] = $greetings;
 
         log_message('debug', 'Rendering dashboard view');

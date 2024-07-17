@@ -250,12 +250,49 @@ class BukuController extends Controller
             $klasifikasi = $this->request->getPost('klasifikasi');
 
             $builder->groupStart();
-            if (!empty($kode_buku)) $builder->like('kode_buku', $kode_buku);
-            if (!empty($nama_buku)) $builder->like('nama_buku', $nama_buku);
-            if (!empty($nama_pengarang)) $builder->like('nama_pengarang', $nama_pengarang);
-            if (!empty($nama_penerbit)) $builder->like('nama_penerbit', $nama_penerbit);
-            if (!empty($tahun_terbit)) $builder->like('tahun_terbit', $tahun_terbit);
-            if (!empty($klasifikasi)) $builder->like('klasifikasi', $klasifikasi);
+
+            if (!empty($kode_buku)) {
+                $words = explode(' ', $kode_buku);
+                foreach ($words as $word) {
+                    $builder->orLike('kode_buku', $word);
+                }
+            }
+
+            if (!empty($nama_buku)) {
+                $words = explode(' ', $nama_buku);
+                foreach ($words as $word) {
+                    $builder->orLike('nama_buku', $word);
+                }
+            }
+
+            if (!empty($nama_pengarang)) {
+                $words = explode(' ', $nama_pengarang);
+                foreach ($words as $word) {
+                    $builder->orLike('nama_pengarang', $word);
+                }
+            }
+
+            if (!empty($nama_penerbit)) {
+                $words = explode(' ', $nama_penerbit);
+                foreach ($words as $word) {
+                    $builder->orLike('nama_penerbit', $word);
+                }
+            }
+
+            if (!empty($tahun_terbit)) {
+                $words = explode(' ', $tahun_terbit);
+                foreach ($words as $word) {
+                    $builder->orLike('tahun_terbit', $word);
+                }
+            }
+
+            if (!empty($klasifikasi)) {
+                $words = explode(' ', $klasifikasi);
+                foreach ($words as $word) {
+                    $builder->orLike('klasifikasi', $word);
+                }
+            }
+
             $builder->groupEnd();
         } else {
         $keywords = explode(' ', $keyword);

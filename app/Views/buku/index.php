@@ -19,7 +19,7 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <style>
     .scrollable-table-container {
-      max-height: 300px; /* Set the desired height for the container */
+      max-height: 600px; /* Set the desired height for the container */
       overflow-y: auto; /* Enable vertical scrolling */
       max-width: fit-content;
     }

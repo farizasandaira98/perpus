@@ -249,51 +249,50 @@ class BukuController extends Controller
             $tahun_terbit = $this->request->getPost('tahun_terbit');
             $klasifikasi = $this->request->getPost('klasifikasi');
 
-            $builder->groupStart();
-
-            if (!empty($kode_buku)) {
-                $words = explode(' ', $kode_buku);
-                foreach ($words as $word) {
-                    $builder->orLike('kode_buku', $word);
-                }
+        $builder->groupStart();
+        if (!empty($kode_buku)) {
+            $words = explode(' ', $kode_buku);
+            foreach ($words as $word) {
+                $builder->orLike('kode_buku', $word);
             }
+        }
 
-            if (!empty($nama_buku)) {
-                $words = explode(' ', $nama_buku);
-                foreach ($words as $word) {
-                    $builder->orLike('nama_buku', $word);
-                }
+        if (!empty($nama_buku)) {
+            $words = explode(' ', $nama_buku);
+            foreach ($words as $word) {
+                $builder->orLike('nama_buku', $word);
             }
+        }
 
-            if (!empty($nama_pengarang)) {
-                $words = explode(' ', $nama_pengarang);
-                foreach ($words as $word) {
-                    $builder->orLike('nama_pengarang', $word);
-                }
+        if (!empty($nama_pengarang)) {
+            $words = explode(' ', $nama_pengarang);
+            foreach ($words as $word) {
+                $builder->orLike('nama_pengarang', $word);
             }
+        }
 
-            if (!empty($nama_penerbit)) {
-                $words = explode(' ', $nama_penerbit);
-                foreach ($words as $word) {
-                    $builder->orLike('nama_penerbit', $word);
-                }
+        if (!empty($nama_penerbit)) {
+            $words = explode(' ', $nama_penerbit);
+            foreach ($words as $word) {
+                $builder->orLike('nama_penerbit', $word);
             }
+        }
 
-            if (!empty($tahun_terbit)) {
-                $words = explode(' ', $tahun_terbit);
-                foreach ($words as $word) {
-                    $builder->orLike('tahun_terbit', $word);
-                }
+        if (!empty($tahun_terbit)) {
+            $words = explode(' ', $tahun_terbit);
+            foreach ($words as $word) {
+                $builder->orLike('tahun_terbit', $word);
             }
+        }
 
-            if (!empty($klasifikasi)) {
-                $words = explode(' ', $klasifikasi);
-                foreach ($words as $word) {
-                    $builder->orLike('klasifikasi', $word);
-                }
+        if (!empty($klasifikasi)) {
+            $words = explode(' ', $klasifikasi);
+            foreach ($words as $word) {
+                $builder->orLike('klasifikasi', $word);
             }
+        }
 
-            $builder->groupEnd();
+        $builder->groupEnd();
         } else {
         $keywords = explode(' ', $keyword);
         $builder->groupStart();

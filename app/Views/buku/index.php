@@ -18,6 +18,28 @@
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <style>
+    .responsive-table {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .responsive-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .responsive-table th, .responsive-table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .responsive-table th, .responsive-table td {
+            font-size: 12px;
+        }
+    }
+
     .scrollable-table-container {
       max-height: 600px; /* Set the desired height for the container */
       overflow-y: auto; /* Enable vertical scrolling */
@@ -17046,7 +17068,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     </td>
                                 </tr>
                             <?php endif; ?>
-                  <table class="table table-stripped">
+                  <table class="responsive-table">
                     <thead>
                         <tr class="text-center">
                             <th>
@@ -17092,7 +17114,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <?php else : ?> 
                             <?php foreach ($buku as $data) : ?>
                                 <tr class="text-center">
-                                    <td>
+                                    <td class="w-100">
                                         <?php if ($data['foto']) : ?>
                                             <img src="<?= base_url('uploads/fotos/' . $data['foto']) ?>" alt="<?= $data['nama_buku'] ?>" class="img-fluid" width="100">
                                         <?php endif; ?>

@@ -16821,7 +16821,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Data Buku</span>
+            <span class="nav-link-text ms-1">Pencarian Buku</span>
           </a>
         </li>
         <li class="nav-item">
@@ -16893,9 +16893,9 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Data Buku</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Pencarian Buku</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Data Buku</h6>
+          <h6 class="font-weight-bolder mb-0">Pencarian Buku</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -16982,7 +16982,7 @@ document.addEventListener('DOMContentLoaded', function() {
                           <input type="text" name="kode_buku" class="form-control custom-form-control" placeholder="Kode Buku">
                       </div>
                       <div class="mb-3">
-                          <input type="text" name="nama_buku" class="form-control custom-form-control" placeholder="Nama Buku">
+                          <input type="text" name="nama_buku" class="form-control custom-form-control" placeholder="Judul Buku">
                       </div>
                       <div class="mb-3">
                           <input type="text" name="nama_pengarang" class="form-control custom-form-control" placeholder="Nama Pengarang">
@@ -17071,6 +17071,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   <table class="responsive-table">
                     <thead>
                         <tr class="text-center">
+                        <?php if (!empty($buku)) : ?>
                             <th>
                                 Foto
                             </th>
@@ -17078,7 +17079,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 Kode Buku
                             </th>
                             <th>
-                                Nama Buku
+                                Judul Buku
                             </th>
                             <th>
                                 Nama Pengarang
@@ -17106,6 +17107,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 Kontrol
                             </th>
                             <?php endif; ?>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -17119,6 +17121,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                             <img src="<?= base_url('uploads/fotos/' . $data['foto']) ?>" alt="<?= $data['nama_buku'] ?>" class="img-fluid" width="100">
                                         <?php endif; ?>
                                     </td>
+                                  
                                     <td><?= esc($data['kode_buku']) ?></td>
                                     <td><?= esc($data['nama_buku']) ?></td>
                                     <td><?= esc($data['nama_pengarang']) ?></td>

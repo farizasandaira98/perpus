@@ -250,6 +250,7 @@ class BukuController extends Controller
             $klasifikasi = $this->request->getPost('klasifikasi');
 
         $builder->groupStart();
+        
         if (!empty($kode_buku)) {
             $words = explode(' ', $kode_buku);
             foreach ($words as $word) {

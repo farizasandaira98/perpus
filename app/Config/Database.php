@@ -29,7 +29,7 @@ class Database extends Config
         'hostname'     => 'localhost:3306',
         'username'     => 'root',
         'password'     => "",
-        'database'     => 'perpus',
+        'database'     => 'perpus1',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,
@@ -54,7 +54,7 @@ class Database extends Config
         'hostname'    => 'root',
         'username'    => '',
         'password'    => '',
-        'database'    => 'perpus',
+        'database'    => 'perpus1',
         'DBDriver'    => 'MySQLi',
         'DBPrefix'    => '',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
         'pConnect'    => false,

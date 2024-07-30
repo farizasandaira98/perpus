@@ -16805,7 +16805,7 @@
                 </g>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Data Buku</span>
+            <span class="nav-link-text ms-1">Pencarian Buku</span>
           </a>
         </li>
         <li class="nav-item">

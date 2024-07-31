@@ -17073,10 +17073,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         <tr class="text-center">
                         <?php if (!empty($buku)) : ?>
                             <th>
-                                Foto
+                                Cover Buku
                             </th>
                             <th>
                                 Kode Buku
+                            </th>
+                            <th>
+                                Sinopsis
                             </th>
                             <th>
                                 Judul Buku
@@ -17123,6 +17126,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     </td>
                                   
                                     <td><?= esc($data['kode_buku']) ?></td>
+                                    <td><?= esc($data['sinopsis']) ?></td>
                                     <td><?= esc($data['nama_buku']) ?></td>
                                     <td><?= esc($data['nama_pengarang']) ?></td>
                                     <td><?= esc($data['nama_penerbit']) ?></td>
@@ -17133,7 +17137,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <td><?= esc($data['updated_at']) ?></td>
                                     <?php if (session()->get('id_role') == 1) : ?>
                                         <td>
-                                        <a href='/buku/delete/<?= esc($data['id']) ?>' class='btn btn-sm btn-danger'>
+                                        <a href="#" onclick="return confirm('Apakah Anda yakin ingin menghapus buku ini?')" class='btn btn-sm btn-danger'>
                                             <i class='bi bi-trash fs-6'></i>
                                         </a>
                                         <a href='/buku/edit/<?= esc($data['id']) ?>' class='btn btn-sm btn-warning'>

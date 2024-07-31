@@ -31,6 +31,11 @@
         </div>
 
         <div class="mb-3">
+            <label for="sinopsis" class="form-label">Sinopsis</label>
+            <textarea class="form-control" id="sinopsis" name="sinopsis" rows="3" required><?= esc($data['sinopsis']) ?></textarea>
+        </div>
+
+        <div class="mb-3">
             <label for="nama_buku" class="form-label">Judul Buku</label>
             <input type="text" class="form-control" id="nama_buku" name="nama_buku" value="<?= esc($data['nama_buku']) ?>" required>
         </div>
@@ -73,7 +78,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="foto" class="form-label">Foto</label>
+            <label for="foto" class="form-label">Cover Buku</label>
             <input type="file" class="form-control" id="foto" name="foto">
         </div>
 

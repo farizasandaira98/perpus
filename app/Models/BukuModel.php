@@ -9,6 +9,7 @@ class BukuModel extends Model
     protected $primaryKey = 'id';
     protected $allowedFields = [
         'kode_buku' , 
+        'sinopsis',
         'nama_buku' , 
         'nama_pengarang', 
         'nama_penerbit', 

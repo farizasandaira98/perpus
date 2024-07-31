@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'          => '',
-        'hostname'     => 'localhost:3306',
+        'hostname'     => 'localhost:3307',
         'username'     => 'root',
         'password'     => "",
-        'database'     => 'perpus1',
+        'database'     => 'perpus',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
         'pConnect'     => false,

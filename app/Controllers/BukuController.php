@@ -39,6 +39,12 @@ class BukuController extends Controller
                     'required' => 'Kolom kode buku wajib diisi.'
                 ],
             ],
+            'sinopsis' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom Sinopsis wajib diisi.'
+                ],
+            ],
             'nama_buku' => [
                 'rules' => 'required',
                 'errors' => [
@@ -100,6 +106,7 @@ class BukuController extends Controller
         $currentDateTime = date('Y-m-d H:i:s');
         $data = [
             'kode_buku' => $this->request->getVar('kode_buku'),
+            'sinopsis'  => $this->request->getVar('sinopsis'),
             'nama_buku'  => $this->request->getVar('nama_buku'),
             'nama_pengarang'  => $this->request->getVar('nama_pengarang'),
             'nama_penerbit'  => $this->request->getVar('nama_penerbit'),
@@ -135,6 +142,12 @@ class BukuController extends Controller
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Kolom kode buku wajib diisi.'
+                ],
+            ],
+            'sinopsis' => [
+                'rules' => 'required',
+                'errors' => [
+                    'required' => 'Kolom Sinopsis wajib diisi.'
                 ],
             ],
             'nama_buku' => [
@@ -200,6 +213,7 @@ class BukuController extends Controller
         $currentDateTime = date('Y-m-d H:i:s');
         $data = [
             'kode_buku' => $this->request->getVar('kode_buku'),
+            'sinopsis'  => $this->request->getVar('sinopsis'),
             'nama_buku'  => $this->request->getVar('nama_buku'),
             'nama_pengarang'  => $this->request->getVar('nama_pengarang'),
             'nama_penerbit'  => $this->request->getVar('nama_penerbit'),

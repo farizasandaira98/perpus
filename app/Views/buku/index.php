@@ -17124,9 +17124,29 @@ document.addEventListener('DOMContentLoaded', function() {
                                             <img src="<?= base_url('uploads/fotos/' . $data['foto']) ?>" alt="<?= $data['nama_buku'] ?>" class="img-fluid" width="100">
                                         <?php endif; ?>
                                     </td>
-                                  
                                     <td><?= esc($data['kode_buku']) ?></td>
-                                    <td><?= esc($data['sinopsis']) ?></td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSinopsis<?= $data['id'] ?>">
+                                            Lihat Sinopsis
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalSinopsis<?= $data['id'] ?>" tabindex="-1" aria-labelledby="modalSinopsisLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalSinopsisLabel">Sinopsis</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <?= esc($data['sinopsis']) ?>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td><?= esc($data['nama_buku']) ?></td>
                                     <td><?= esc($data['nama_pengarang']) ?></td>
                                     <td><?= esc($data['nama_penerbit']) ?></td>
@@ -17137,9 +17157,28 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <td><?= esc($data['updated_at']) ?></td>
                                     <?php if (session()->get('id_role') == 1) : ?>
                                         <td>
-                                        <a href="#" onclick="return confirm('Apakah Anda yakin ingin menghapus buku ini?')" class='btn btn-sm btn-danger'>
+                                        <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#modalDelete<?= esc($data['id']) ?>">
                                             <i class='bi bi-trash fs-6'></i>
-                                        </a>
+                                        </button>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalDelete<?= esc($data['id']) ?>" tabindex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalDeleteLabel">Konfirmasi Hapus Buku</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Apakah Anda yakin ingin menghapus buku ini?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                                        <a href="/buku/delete/<?= esc($data['id']) ?>" class="btn btn-danger">Hapus</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <a href='/buku/edit/<?= esc($data['id']) ?>' class='btn btn-sm btn-warning'>
                                             <i class='bi bi-pencil-square fs-6'></i>
                                         </a>

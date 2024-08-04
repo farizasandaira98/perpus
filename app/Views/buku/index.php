@@ -16825,6 +16825,15 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link  " href="/klasifikasi">
+            <div
+              class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 7.5L11.6078 3.22062C11.7509 3.14014 11.8224 3.09991 11.8982 3.08414C11.9654 3.07019 12.0346 3.07019 12.1018 3.08414C12.1776 3.09991 12.2491 3.14014 12.3922 3.22062L20 7.5M4 7.5V16.0321C4 16.2025 4 16.2876 4.02499 16.3637C4.04711 16.431 4.08326 16.4928 4.13106 16.545C4.1851 16.6041 4.25933 16.6459 4.40779 16.7294L12 21M4 7.5L12 11.5M12 21L19.5922 16.7294C19.7407 16.6459 19.8149 16.6041 19.8689 16.545C19.9167 16.4928 19.9529 16.431 19.975 16.3637C20 16.2876 20 16.2025 20 16.0321V7.5M12 21V11.5M20 7.5L12 11.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> 
+            </div>
+            <span class="nav-link-text ms-1">Klasifikasi</span>
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="/user">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -16850,37 +16859,6 @@
             <span class="nav-link-text ms-1">Data Pengguna</span>
           </a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link  " href="/profile">
-            <div
-              class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
-                <title>customer-support</title>
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                  <g transform="translate(-1717.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                    <g transform="translate(1716.000000, 291.000000)">
-                      <g transform="translate(1.000000, 0.000000)">
-                        <path class="color-background opacity-6"
-                          d="M45,0 L26,0 C25.447,0 25,0.447 25,1 L25,20 C25,20.379 25.214,20.725 25.553,20.895 C25.694,20.965 25.848,21 26,21 C26.212,21 26.424,20.933 26.6,20.8 L34.333,15 L45,15 C45.553,15 46,14.553 46,14 L46,1 C46,0.447 45.553,0 45,0 Z">
-                        </path>
-                        <path class="color-background"
-                          d="M22.883,32.86 C20.761,32.012 17.324,31 13,31 C8.676,31 5.239,32.012 3.116,32.86 C1.224,33.619 0,35.438 0,37.494 L0,41 C0,41.553 0.447,42 1,42 L25,42 C25.553,42 26,41.553 26,41 L26,37.494 C26,35.438 24.776,33.619 22.883,32.86 Z">
-                        </path>
-                        <path class="color-background"
-                          d="M13,28 C17.432,28 21,22.529 21,18 C21,13.589 17.411,10 13,10 C8.589,10 5,13.589 5,18 C5,22.529 8.568,28 13,28 Z">
-                        </path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-            <span class="nav-link-text ms-1">Profile Pembuat</span>
-          </a>
-        </li> -->
-
-
       </ul>
     </div>
 
@@ -17152,7 +17130,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <td><?= esc($data['nama_penerbit']) ?></td>
                                     <td><?= esc($data['tahun_terbit']) ?></td>
                                     <td><?= esc($data['jumlah_buku']) ?> Buah</td>
-                                    <td><?= esc($data['klasifikasi']) ?></td>
+                                    <td><?= esc($data['nama_klasifikasi'])?></td>
                                     <td><?= esc($data['created_at']) ?></td>
                                     <td><?= esc($data['updated_at']) ?></td>
                                     <?php if (session()->get('id_role') == 1) : ?>

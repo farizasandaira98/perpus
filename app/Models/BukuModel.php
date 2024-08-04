@@ -15,10 +15,23 @@ class BukuModel extends Model
         'nama_penerbit', 
         'tahun_terbit', 
         'jumlah_buku', 
-        'klasifikasi',
+        'id_klasifikasi',
         'foto' , 
         'search_count' , 
         'created_at' , 
         'updated_at'
     ];
+
+    public function getKlasifikasi()
+    {
+        return $this->select('buku.*, klasifikasi_buku.nama_klasifikasi')
+                    ->join('klasifikasi_buku', 'klasifikasi_buku.id = buku.id_klasifikasi')
+                    ->findAll();
+    }
+
+    public function getKlasifikasiSearch()
+    {
+        return $this->db->table($this->table)
+                        ->join('klasifikasi_buku', 'klasifikasi_buku.id = buku.id_klasifikasi');
+    }
 }

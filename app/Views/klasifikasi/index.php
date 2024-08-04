@@ -6,15 +6,46 @@
   <link rel="apple-touch-icon" sizes="76x76" href="<?= base_url('template/assets/img/apple-icon.png') ?>">
   <link rel="icon" type="image/png" href="<?= base_url('template/assets/img/favicon.png') ?>">
   <title>
-    Halaman Dashboard
+    Halaman User
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <!-- Nucleo Icons -->
   <link href="<?= base_url('template/assets/css/nucleo-icons.css') ?>" rel="stylesheet">
-  <link href="<?= base_url('template/assets/css/nucleo-svg.css') ?>" rel="stylesheet">
+  <link href="<?= base_url('template/assets/css/nucleo-svg.css') ?>" rel="stylesheet"> 
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <style>
+    .responsive-table {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .responsive-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .responsive-table th, .responsive-table td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .responsive-table th, .responsive-table td {
+            font-size: 12px;
+        }
+    }
+
+    .scrollable-table-container {
+      max-height: 600px; /* Set the desired height for the container */
+      overflow-y: auto; /* Enable vertical scrolling */
+      max-width: fit-content;
+    }
+
+  </style>
   <style media="all" id="fa-v4-font-face">
     /*!
  * Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com
@@ -8391,6 +8422,32 @@
       src: url(https://ka-f.fontawesome.com/releases/v5.15.4/webfonts/free-fa-v4deprecations.eot?#iefix) format("embedded-opentype"), url(https://ka-f.fontawesome.com/releases/v5.15.4/webfonts/free-fa-v4deprecations.woff2) format("woff2"), url(https://ka-f.fontawesome.com/releases/v5.15.4/webfonts/free-fa-v4deprecations.woff) format("woff"), url(https://ka-f.fontawesome.com/releases/v5.15.4/webfonts/free-fa-v4deprecations.ttf) format("truetype"), url(https://ka-f.fontawesome.com/releases/v5.15.4/webfonts/free-fa-v4deprecations.svg#fontawesome) format("svg");
       unicode-range: U+f003, U+f006, U+f014, U+f016, U+f01a-f01b, U+f01d, U+f040, U+f045-f047, U+f05c-f05d, U+f07d-f07e, U+f087-f088, U+f08a-f08b, U+f08e, U+f090, U+f096-f097, U+f0a2, U+f0e4-f0e6, U+f0ec-f0ee, U+f0f5-f0f7, U+f10c, U+f112, U+f114-f115, U+f11d, U+f123, U+f132, U+f145, U+f147-f149, U+f14c, U+f166, U+f16a, U+f172, U+f175-f178, U+f18e, U+f190, U+f196, U+f1b1, U+f1d9, U+f1db, U+f1f7, U+f20c, U+f219, U+f230, U+f24a, U+f250, U+f278, U+f27b, U+f283, U+f28c, U+f28e, U+f29b-f29c, U+f2b7, U+f2ba, U+f2bc, U+f2be, U+f2c0, U+f2c3, U+f2d3-f2d4
     }
+  </style>
+  <style>
+    .scrollable-table-container {
+      max-height: 300px; /* Set the desired height for the container */
+      overflow-y: auto; /* Enable vertical scrolling */
+      max-width: fit-content;
+    }
+    .custom-input-group {
+        display: flex;
+        margin-bottom: 10px; /* Adjust this value as needed */
+    }
+
+    .custom-form-control {
+        border-radius: 5px 0 0 5px; /* Add border-radius to match button */
+    }
+
+    .custom-input-group-append {
+        display: flex;
+    }
+
+    .custom-btn {
+        margin-left: 10px;
+        border-radius: 0 5px 5px 0; /* Add border-radius to match input */
+        height: 100%;
+    }
+
   </style>
   <style media="all" id="fa-v4-shims">
     /*!
@@ -16723,7 +16780,7 @@
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link  active" href="/">
+          <a class="nav-link" href="/">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -16749,7 +16806,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="/buku">
+          <a class="nav-link" href="/buku">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -16775,7 +16832,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="/klasifikasi">
+          <a class="nav-link active" href="/klasifikasi">
             <div
               class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M4 7.5L11.6078 3.22062C11.7509 3.14014 11.8224 3.09991 11.8982 3.08414C11.9654 3.07019 12.0346 3.07019 12.1018 3.08414C12.1776 3.09991 12.2491 3.14014 12.3922 3.22062L20 7.5M4 7.5V16.0321C4 16.2025 4 16.2876 4.02499 16.3637C4.04711 16.431 4.08326 16.4928 4.13106 16.545C4.1851 16.6041 4.25933 16.6459 4.40779 16.7294L12 21M4 7.5L12 11.5M12 21L19.5922 16.7294C19.7407 16.6459 19.8149 16.6041 19.8689 16.545C19.9167 16.4928 19.9529 16.431 19.975 16.3637C20 16.2876 20 16.2025 20 16.0321V7.5M12 21V11.5M20 7.5L12 11.5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg> 
@@ -16809,40 +16866,6 @@
             <span class="nav-link-text ms-1">Data Pengguna</span>
           </a>
         </li>
-
-
-
-        <!-- <li class="nav-item">
-          <a class="nav-link  " href="/profile">
-            <div
-              class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
-                <title>customer-support</title>
-                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                  <g transform="translate(-1717.000000, -291.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                    <g transform="translate(1716.000000, 291.000000)">
-                      <g transform="translate(1.000000, 0.000000)">
-                        <path class="color-background opacity-6"
-                          d="M45,0 L26,0 C25.447,0 25,0.447 25,1 L25,20 C25,20.379 25.214,20.725 25.553,20.895 C25.694,20.965 25.848,21 26,21 C26.212,21 26.424,20.933 26.6,20.8 L34.333,15 L45,15 C45.553,15 46,14.553 46,14 L46,1 C46,0.447 45.553,0 45,0 Z">
-                        </path>
-                        <path class="color-background"
-                          d="M22.883,32.86 C20.761,32.012 17.324,31 13,31 C8.676,31 5.239,32.012 3.116,32.86 C1.224,33.619 0,35.438 0,37.494 L0,41 C0,41.553 0.447,42 1,42 L25,42 C25.553,42 26,41.553 26,41 L26,37.494 C26,35.438 24.776,33.619 22.883,32.86 Z">
-                        </path>
-                        <path class="color-background"
-                          d="M13,28 C17.432,28 21,22.529 21,18 C21,13.589 17.411,10 13,10 C8.589,10 5,13.589 5,18 C5,22.529 8.568,28 13,28 Z">
-                        </path>
-                      </g>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-            <span class="nav-link-text ms-1">Profile Pembuat</span>
-          </a>
-        </li> -->
-
-
       </ul>
     </div>
 
@@ -16855,9 +16878,9 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Home</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Klasifikasi Buku</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">Home</h6>
+          <h6 class="font-weight-bolder mb-0">Klasifikasi Buku</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -16869,11 +16892,11 @@
     <?php if(session()->has('username')) : ?>
         <!-- If the user is logged in, show username and a dropdown for sign out -->
         <div class="dropdown">
-            <a href="#" class="nav-link font-weight-bold px-0 text-body dropdown-toggle" data-bs-toggle="dropdown">
+            <a href="#" class="nav-link font-weight-bold px-0 text-body dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user me-sm-1" aria-hidden="true"></i>
                 <span class="d-sm-inline d-none"><?= session('username') ?></span>
             </a>
-            <ul class="dropdown-menu" style="width: 10px;">
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                 <li><a class="dropdown-item" href="/logout">Keluar</a></li>
             </ul>
         </div>
@@ -16885,6 +16908,27 @@
         </a>
     <?php endif; ?>
 </li>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var dropdownToggle = document.querySelector('.dropdown-toggle');
+    var dropdownMenu = document.querySelector('.dropdown-menu');
+    
+    if (dropdownToggle && dropdownMenu) {
+        dropdownToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            dropdownMenu.classList.toggle('show');
+        });
+
+        // Close the dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                dropdownMenu.classList.remove('show');
+            }
+        });
+    }
+});
+</script>
 
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link p-0 text-body" id="iconNavbarSidenav">
@@ -16908,133 +16952,85 @@
     <!-- End Navbar -->
     <div class="container-fluid py-4">
       <div class="row">
-      <?php if (session()->has('errors')) : ?>
-                        <div style="width: 80%;">
-                        <div class="card mb-4 sm d-flex">
-                          <div class="card-body ">
-                          <ul>
-                                <!-- Iterate through the errors and display them -->
-                                <?php foreach (session('errors') as $error) : ?>
-                                    <li><?= esc($error) ?></li> <!-- Escape the error message to prevent XSS attacks -->
-                                <?php endforeach; ?>
-                            </ul>
-                          </div>
-                            
-                        </div>
-                        </div>
-                    <?php endif; ?>
-
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Data Buku</p>
-                    <h5 class="font-weight-bolder mb-0"><?php echo $buku; ?>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-books text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Data Pengguna</p>
-                    <h5 class="font-weight-bolder mb-0"><?php echo $user; ?>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-single-02 text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-        </div>
-      </div>
-      <div class="row mt-4">
-        <div class="col-lg-7 mb-lg-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="d-flex flex-column h-100">
-                    <h5 class="font-weight-bolder">Dashboard Perpustakaan</h5>
-                    <p class="mb-5"><?php echo $greetings; ?></p>
-                  </div>
-                </div>
-                <div class="col-lg-5 ms-auto text-center mt-5 mt-lg-0">
-                  <div class="bg-gradient-primary border-radius-lg h-100">
-                    <img src="<?= base_url('template/assets/img/shapes/waves-white.svg') ?>"
-                      class="position-absolute h-100 w-50 top-0 d-lg-block d-none" alt="waves">
-                    <div class="position-relative d-flex align-items-center justify-content-center h-100">
-                      <img class="w-100 position-relative z-index-2 pt-4"
-                        src="<?= base_url('template/assets/img/illustrations/rocket-white.png') ?>" alt="rocket">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-5">
-          <div class="card h-100 p-3">
-            <div class="overflow-hidden position-relative border-radius-lg bg-cover h-100"
-              style="background-image: url('<?= base_url('template/assets/img/ivancik.jpg') ?>');">
-              <span class="mask bg-gradient-dark"></span>
-              <div class="card-body position-relative z-index-1 d-flex flex-column h-100 p-3">
-                <h5 class="text-white font-weight-bolder mb-4 pt-2">Buku Dapat Dicari Disini</h5>
-                <p class="text-white">Koleksi Buku Yang Ada Pada Perpustakaan</p>
-                <a class="text-white text-sm font-weight-bold mb-0 icon-move-right mt-auto" href="/buku">Ke
-                  Halaman Buku<i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row mt-4">
       <div class="col-lg-12 mb-lg-0 mb-4">
           <div class="card">
+          <div class="row p-4 justify-content-between align-items-center">
+                        <div class="col-6">
+                        <form action="/klasifikasi/search" method="post" class="custom-input-group">
+    <input type="text" name="search" class="form-control custom-form-control" placeholder="Cari Klasifikasi" aria-label="Cari Klasifikasi" aria-describedby="basic-addon2">
+    <div class="input-group-append custom-input-group-append">
+        <button class="btn btn-outline-secondary custom-btn" type="submit">
+            <i class="fa fa-search"></i>
+        </button>
+        <a href="/user">
+        <button class="btn btn-outline-secondary custom-btn" type="button">
+          <i class="fa fa-refresh"></i>
+        </button>
+        </a>
+    </div>
+</form>
+                        </div>
+                        <?php if (session()->get('id_role') == '1') : ?>
+                        <div class="col-6">
+                            <a href="/klasifikasi/create" class="btn btn-primary" style="margin-left: 81%;">
+                                <i class="bi bi-plus"></i> Tambah
+                            </a>
+                        </div>
+                        <?php endif ?>
+                    </div>
             <div class="card-body p-3">
               <div class="row">
-              <h5 class="text-black fw-bolder">Daftar Buku Paling Dicari</h5>
-              </div>
-              <div class="row">
-              <table class="table table-borderless">
-                  <tbody>
-                      <?php $rank = 1; ?>
-                      <?php foreach ($chart_buku as $ranking_buku): ?>
-                          <tr>
-                              <td style="font-weight: bold;"><?= $rank ?></td>
-                              <td style="font-weight: bold;"><?= $ranking_buku['nama_buku'] ?></td>
-                              <td style="font-weight: bold;"><?= $ranking_buku['search_count'] ?> Pencarian</td>
-                          </tr>
-                          <?php $rank++; ?>
-                      <?php endforeach; ?>
-                  </tbody>
-              </table>
+                <div class="col-lg-12">
+                  <div class="d-flex flex-column h-100">
+                <div class="scrollable-table-container">
+                <?php if (empty($klasifikasi)) : ?>
+                            <p>Tidak ada data klasifikasi.</p>
+                        <?php else : ?> 
+                <table class="responsive-table">
+                    <thead>
+                        <tr class="text-center">
+                            <th>
+                                Nama Klasifikasi
+                            </th>
+                            <?php if(session()->get('id_role') == '1') : ?>
+                            <th>
+                                Kontrol
+                            </th>
+                            <?php endif ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <?php foreach ($klasifikasi as $data) : ?>
+                                <tr class="text-center">
+                                    <td><?= esc($data['nama_klasifikasi']) ?></td>
+                                    <?php if(session()->get('id_role') == '1') : ?>
+                                    <td>
+                                        <a href="/klasifikasi/delete/<?= esc($data['id']) ?>" class="btn btn-sm btn-danger">
+                                            <i class="bi bi-trash fs-6"></i>
+                                        </a>
+                                        <a href="/klasifikasi/edit/<?= esc($data['id']) ?>" class="btn btn-sm btn-warning">
+                                            <i class="bi bi-pencil-square fs-6"></i>
+                                        </a>
+                                    </td>
+                                    <?php endif ?>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+                    </tbody>
+                </table>
+                </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
+      <div class="row mt-4">
+        <div class="col-lg-5">
+        </div>
+      </div>
       <footer class="footer pt-3" style="margin-top: 320px">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
@@ -17042,7 +17038,7 @@
               <div class="copyright text-center text-sm text-muted text-lg-start">
                 ©
                 2024 Dibuat Menggunakan Template <a href="https://www.creative-tim.com" class="font-weight-bold"
-                  target="_blank">Creative Tim</a>
+                  target="_blank">Creative Tim</a></div>
             </div>
             <div class="col-lg-6">
 

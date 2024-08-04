@@ -62,18 +62,10 @@
 
         <div class="mb-3">
             <label for="klasifikasi" class="form-label">Klasifikasi</label>
-            <select name="klasifikasi" class="form-control custom-form-control" required>
-                <option value="">Pilih Klasifikasi</option>
-                <option value="Karya Umum" <?= ($data['klasifikasi'] == 'Karya Umum') ? 'selected' : '' ?>>Karya Umum</option>
-                <option value="Agama" <?= ($data['klasifikasi'] == 'Agama') ? 'selected' : '' ?>>Agama</option>
-                <option value="Ilmu-ilmu Sosial" <?= ($data['klasifikasi'] == 'Ilmu-ilmu Sosial') ? 'selected' : '' ?>>Ilmu-ilmu Sosial</option>
-                <option value="Bahasa" <?= ($data['klasifikasi'] == 'Bahasa') ? 'selected' : '' ?>>Bahasa</option>
-                <option value="Buku Paket" <?= ($data['klasifikasi'] == 'Buku Paket') ? 'selected' : '' ?>>Buku Paket</option>
-                <option value="Teknologi" <?= ($data['klasifikasi'] == 'Teknologi') ? 'selected' : '' ?>>Teknologi</option>
-                <option value="Seni Dan Hiburan" <?= ($data['klasifikasi'] == 'Seni Dan Hiburan') ? 'selected' : '' ?>>Seni Dan Hiburan</option>
-                <option value="Olahraga" <?= ($data['klasifikasi'] == 'Olahraga') ? 'selected' : '' ?>>Olahraga</option>
-                <option value="Geografi" <?= ($data['klasifikasi'] == 'Geografi') ? 'selected' : '' ?>>Geografi</option>
-                <option value="Sejarah" <?= ($data['klasifikasi'] == 'Sejarah') ? 'selected' : '' ?>>Sejarah</option>
+            <select name="id_klasifikasi" class="form-control custom-form-control" required>
+                 <?php foreach ($klasifikasi as $klas) : ?>
+                    <option value="<?= $klas['id'] ?>" <?= $klas['id'] == esc($data['id_klasifikasi']) ? 'selected' : '' ?>><?= $klas['nama_klasifikasi'] ?></option>
+                 <?php endforeach; ?>
             </select>
         </div>
 

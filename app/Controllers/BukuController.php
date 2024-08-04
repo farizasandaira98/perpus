@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use CodeIgniter\Controller;
 use App\Models\BukuModel;
+use App\Models\KlasifikasiModel;
 
 class BukuController extends Controller
 {
@@ -15,7 +16,7 @@ class BukuController extends Controller
             return redirect()->to('/login');
         }
         $model = new BukuModel();
-        $data['buku'] = $model->findAll();
+        $data['buku'] = $model->getKlasifikasi();
 
         return view('buku/index', $data);
     }
@@ -27,7 +28,10 @@ class BukuController extends Controller
             $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);
             return redirect()->to('/');
         }
-        return view('buku/create');
+
+        $model = new KlasifikasiModel();
+        $data['klasifikasi'] = $model->findAll();
+        return view('buku/create', $data);
     }
 
     public function post()
@@ -75,7 +79,7 @@ class BukuController extends Controller
                     'required' => 'Kolom jumlah buku wajib diisi.'
                 ],
             ],
-            'klasifikasi' => [
+            'id_klasifikasi' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Kolom klasifikasi wajib diisi.'
@@ -112,7 +116,7 @@ class BukuController extends Controller
             'nama_penerbit'  => $this->request->getVar('nama_penerbit'),
             'tahun_terbit'  => $this->request->getVar('tahun_terbit'),
             'jumlah_buku'  => $this->request->getVar('jumlah_buku'),
-            'klasifikasi'  => $this->request->getVar('klasifikasi'),
+            'id_klasifikasi'  => $this->request->getVar('id_klasifikasi'),
             'created_at' => $currentDateTime,
             'updated_at' => $currentDateTime,
             'foto'  => $fotoName,
@@ -129,9 +133,11 @@ class BukuController extends Controller
             $session->setFlashdata('errors', ['Hak Akses Akun Tidak Diizinkan, Silahkan Login Sebagai Admin']);
             return redirect()->to('/');
         }
+        $klasifikasi = model('KlasifikasiModel')->findAll();
         $data = model('BukuModel')->find($id);
         return view('buku/edit', [
             'data' => $data,
+            'klasifikasi' => $klasifikasi
         ]);
     }
 
@@ -180,7 +186,7 @@ class BukuController extends Controller
                     'required' => 'Kolom jumlah buku wajib diisi.'
                 ],
             ],
-            'klasifikasi' => [
+            'id_klasifikasi' => [
                 'rules' => 'required',
                 'errors' => [
                     'required' => 'Kolom klasifikasi wajib diisi.'
@@ -219,7 +225,7 @@ class BukuController extends Controller
             'nama_penerbit'  => $this->request->getVar('nama_penerbit'),
             'tahun_terbit'  => $this->request->getVar('tahun_terbit'),
             'jumlah_buku'  => $this->request->getVar('jumlah_buku'),
-            'klasifikasi'  => $this->request->getVar('klasifikasi'),
+            'id_klasifikasi'  => $this->request->getVar('id_klasifikasi'),
             'updated_at' => $currentDateTime,
             'foto'  => $fotoName
         ];
@@ -248,12 +254,12 @@ class BukuController extends Controller
     public function search() {
         $model = new BukuModel();
         $startTime = microtime(true);
-
+    
         $keyword = $this->request->getPost('keyword');
         $advancedSearch = $this->request->getPost('advanced_search');
-
-        $builder = $model->builder();
-
+    
+        $builder = $model->getKlasifikasiSearch();
+    
         if ($advancedSearch) {
             // Advanced search
             $kode_buku = $this->request->getPost('kode_buku');
@@ -262,81 +268,81 @@ class BukuController extends Controller
             $nama_penerbit = $this->request->getPost('nama_penerbit');
             $tahun_terbit = $this->request->getPost('tahun_terbit');
             $klasifikasi = $this->request->getPost('klasifikasi');
-
-        $builder->groupStart();
-        
-        if (!empty($kode_buku)) {
-            $words = explode(' ', $kode_buku);
-            foreach ($words as $word) {
-                $builder->orLike('kode_buku', $word);
+    
+            $builder->groupStart();
+    
+            if (!empty($kode_buku)) {
+                $words = explode(' ', $kode_buku);
+                foreach ($words as $word) {
+                    $builder->orLike('buku.kode_buku', $word);
+                }
             }
-        }
-
-        if (!empty($nama_buku)) {
-            $words = explode(' ', $nama_buku);
-            foreach ($words as $word) {
-                $builder->orLike('nama_buku', $word);
+    
+            if (!empty($nama_buku)) {
+                $words = explode(' ', $nama_buku);
+                foreach ($words as $word) {
+                    $builder->orLike('buku.nama_buku', $word);
+                }
             }
-        }
-
-        if (!empty($nama_pengarang)) {
-            $words = explode(' ', $nama_pengarang);
-            foreach ($words as $word) {
-                $builder->orLike('nama_pengarang', $word);
+    
+            if (!empty($nama_pengarang)) {
+                $words = explode(' ', $nama_pengarang);
+                foreach ($words as $word) {
+                    $builder->orLike('buku.nama_pengarang', $word);
+                }
             }
-        }
-
-        if (!empty($nama_penerbit)) {
-            $words = explode(' ', $nama_penerbit);
-            foreach ($words as $word) {
-                $builder->orLike('nama_penerbit', $word);
+    
+            if (!empty($nama_penerbit)) {
+                $words = explode(' ', $nama_penerbit);
+                foreach ($words as $word) {
+                    $builder->orLike('buku.nama_penerbit', $word);
+                }
             }
-        }
-
-        if (!empty($tahun_terbit)) {
-            $words = explode(' ', $tahun_terbit);
-            foreach ($words as $word) {
-                $builder->orLike('tahun_terbit', $word);
+    
+            if (!empty($tahun_terbit)) {
+                $words = explode(' ', $tahun_terbit);
+                foreach ($words as $word) {
+                    $builder->orLike('buku.tahun_terbit', $word);
+                }
             }
-        }
-
-        if (!empty($klasifikasi)) {
-            $words = explode(' ', $klasifikasi);
-            foreach ($words as $word) {
-                $builder->orLike('klasifikasi', $word);
+    
+            if (!empty($klasifikasi)) {
+                $words = explode(' ', $klasifikasi);
+                foreach ($words as $word) {
+                    $builder->orLike('klasifikasi_buku.nama_klasifikasi', $word);
+                }
             }
-        }
-
-        $builder->groupEnd();
+    
+            $builder->groupEnd();
         } else {
-        $keywords = explode(' ', $keyword);
-        $builder->groupStart();
-        foreach ($keywords as $word) {
-            $builder->orGroupStart();
-            $builder->like('kode_buku', $word, 'both');
-            $builder->orLike('nama_buku', $word, 'both');
-            $builder->orLike('nama_pengarang', $word, 'both');
-            $builder->orLike('nama_penerbit', $word, 'both');
-            $builder->orLike('tahun_terbit', $word, 'both');
-            $builder->orLike('klasifikasi', $word, 'both');
+            $keywords = explode(' ', $keyword);
+            $builder->groupStart();
+            foreach ($keywords as $word) {
+                $builder->orGroupStart();
+                $builder->like('buku.kode_buku', $word, 'both');
+                $builder->orLike('buku.nama_buku', $word, 'both');
+                $builder->orLike('buku.nama_pengarang', $word, 'both');
+                $builder->orLike('buku.nama_penerbit', $word, 'both');
+                $builder->orLike('buku.tahun_terbit', $word, 'both');
+                $builder->orLike('klasifikasi_buku.nama_klasifikasi', $word, 'both');
+                $builder->groupEnd();
+            }
             $builder->groupEnd();
         }
-        $builder->groupEnd();
-        }
-
-        $bukubyid = $builder->get()->getResultArray();
-
+    
+        $bukubyid = $builder->select('buku.*, klasifikasi_buku.nama_klasifikasi')->get()->getResultArray();
+    
         $endTime = microtime(true);
         $executionTime = $endTime - $startTime;
-
+    
         $data['buku'] = $bukubyid;
         $data['execution_time'] = number_format($executionTime, 4);
-
+    
         foreach ($bukubyid as $book) {
             $model->update($book['id'], ['search_count' => $book['search_count'] + 1]);
         }
-
+    
         return view('buku/index', $data);
-    }
+    }    
     
 }

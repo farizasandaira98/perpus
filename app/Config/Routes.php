@@ -28,6 +28,14 @@ $routes->post('/user/update/(:num)', 'UserController::update/$1');
 $routes->get('/user/delete/(:num)', 'UserController::delete/$1');
 $routes->post('/user/search' , 'UserController::search');
 
+//klasifikasi routes
+$routes->get('/klasifikasi', 'KlasifikasiController::index');
+$routes->get('/klasifikasi/create' , 'KlasifikasiController::create');
+$routes->post('/klasifikasi/post' , 'KlasifikasiController::post');
+$routes->get('/klasifikasi/edit/(:num)', 'KlasifikasiController::edit/$1');
+$routes->post('/klasifikasi/update/(:num)', 'KlasifikasiController::update/$1');
+$routes->get('/klasifikasi/delete/(:num)', 'KlasifikasiController::delete/$1');
+
 //profile routes
 $routes->get('/profile', 'Home::profile');
 
